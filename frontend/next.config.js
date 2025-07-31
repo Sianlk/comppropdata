@@ -1,0 +1,1 @@
+# Placeholder content for frontend/next.config.js

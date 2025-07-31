@@ -1,0 +1,1 @@
+# Placeholder content for minion_apps/podstore_clone.py

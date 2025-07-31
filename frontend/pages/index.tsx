@@ -1,0 +1,1 @@
+# Placeholder content for frontend/pages/index.tsx
