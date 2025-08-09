@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sianlk.github.io/gitgit/sitemap.xml
