@@ -1,1 +1,1 @@
-commercial real estate,property data,CRE,analytics,cap rates,investment
+AI,comppropdata,automation,platform,mobile
