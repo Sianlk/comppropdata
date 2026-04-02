@@ -1,1 +1,18 @@
-CompPropData delivers institutional-grade commercial real estate analytics powered by AI. Access comprehensive property data, cap rate analysis, market comparables, and predictive valuation models across all major markets.
+CompProp Data — Property Intelligence. Instantly.
+
+CompProp Data is a production-grade AI-powered platform built for reliability, security, and scale.
+
+KEY FEATURES:
+• Secure authentication with MFA and biometrics
+• AI-powered recommendations and automation
+• Real-time WebSocket notifications
+• Stripe-powered subscription management
+• Full GDPR compliance with data export/deletion
+• Offline-capable Progressive Web App
+• End-to-end encrypted communications
+
+SECURITY & PRIVACY:
+Your data is encrypted at rest and in transit. We comply with GDPR, CCPA, and HIPAA guidelines. Full audit logs are maintained for all critical operations.
+
+SUPPORT: https://comppropdata.com/support
+PRIVACY: https://comppropdata.com/privacy
