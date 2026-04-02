@@ -1,0 +1,56 @@
+{
+  "name": "comppropdata",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest --coverage",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "type-check": "tsc --noEmit",
+    "build:android": "cd android && ./gradlew bundleRelease"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-native": "0.76.6",
+    "@react-navigation/native": "^7.0.14",
+    "@react-navigation/stack": "^7.1.1",
+    "react-native-safe-area-context": "^4.12.0",
+    "react-native-screens": "^4.4.0",
+    "@reduxjs/toolkit": "^2.5.0",
+    "react-redux": "^9.2.0",
+    "axios": "^1.7.9",
+    "react-native-mmkv": "^3.1.0",
+    "react-native-reanimated": "^3.16.7",
+    "react-native-gesture-handler": "^2.21.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.3",
+    "@babel/runtime": "^7.25.0",
+    "@react-native/babel-preset": "0.76.6",
+    "@react-native/eslint-config": "0.76.6",
+    "@react-native/metro-config": "0.76.6",
+    "@react-native/typescript-config": "0.76.6",
+    "@testing-library/react-native": "^12.8.1",
+    "@types/jest": "^29.5.13",
+    "@types/react": "^18.3.12",
+    "@types/react-test-renderer": "^18.3.0",
+    "eslint": "^8.19.0",
+    "jest": "^29.7.0",
+    "prettier": "2.8.8",
+    "typescript": "5.0.4"
+  },
+  "jest": {
+    "preset": "react-native",
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "functions": 70,
+        "lines": 70,
+        "statements": 70
+      }
+    }
+  }
+}
