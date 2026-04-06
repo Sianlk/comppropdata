@@ -23,7 +23,7 @@ cryptography==43.0.3
 # Cache & Queue
 redis==5.1.1
 celery==5.4.0
-kombu==5.4.2
+kombu==5.6.2
 
 # AI Integration
 openai==1.51.0
