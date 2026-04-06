@@ -41,7 +41,7 @@
     "date-fns": "^3.6.0",
     "i18next": "^23.0.0",
     "react-i18next": "^14.0.0",
-    "@sentry/react-native": "~6.3.0"
+    "@sentry/react-native": "~8.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.0",
