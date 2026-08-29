@@ -2,7 +2,7 @@ export const API_BASE=(process.env.NEXT_PUBLIC_API_BASE_URL||'').replace(/\/$/,'
 
 export const endpoints={
   health:'/health',status:'/api/v1/system/status',sources:'/api/v1/data/sources',site:'/api/v1/site/intelligence/full',
-  analyse:'/api/v1/ai/analyse',deepResearch:'/api/v1/research/deep',appraisal:'/api/v1/calculators/appraisal',
+  analyse:'/api/v1/ai/analyse',deepResearch:'/api/v1/research/web-deep',policyLibrary:'/api/v1/policy/library',policySearch:'/api/v1/policy/search',appraisal:'/api/v1/calculators/appraisal',
   residual:'/api/v1/calculators/residual',finance:'/api/v1/calculators/finance',quotes:'/api/v1/quotes/compare',
   upload:'/api/v1/documents/upload',report:'/api/v1/reports/generate',seo:'/api/v1/seo/strategy',trends:'/api/v1/seo/trending-now',
   measuredKeywords:'/api/v1/seo/measured-keywords',searchConsole:'/api/v1/seo/search-console',projects:'/api/v1/projects',

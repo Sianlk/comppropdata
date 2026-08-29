@@ -17,8 +17,8 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install -r requirements.txt
-      - run: python -m py_compile app/main.py app/full_stack.py app/bootstrap.py app/extensions.py app/production.py
-      - run: python -c "from app.production import app; paths={r.path for r in app.routes}; required={'/health','/api/v1/system/status','/api/v1/auth/login','/api/v1/auth/forgot-password','/api/v1/projects','/api/v1/site/intelligence/full','/api/v1/seo/strategy','/api/v1/leads/capture','/api/v1/resources/site-triage.pdf'}; assert required.issubset(paths), required-paths"
+      - run: python -m py_compile app/main.py app/full_stack.py app/bootstrap.py app/extensions.py app/intelligence.py app/policy_security.py app/production.py
+      - run: python -c "from app.production import app; paths={r.path for r in app.routes}; required={'/health','/api/v1/system/status','/api/v1/auth/login','/api/v1/auth/forgot-password','/api/v1/projects','/api/v1/site/intelligence/full','/api/v1/research/web-deep','/api/v1/policy/library','/api/v1/policy/search','/api/v1/seo/strategy','/api/v1/leads/capture','/api/v1/resources/site-triage.pdf'}; assert required.issubset(paths), required-paths"
         env:
           ENV: production
           JWT_SECRET: ci-only-secret-with-more-than-enough-characters
