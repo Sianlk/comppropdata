@@ -1,67 +1,86 @@
 # Property Development, Augmented — independent production platform
 
-This folder is the standalone, GitHub-owned version of **Property Development, Augmented**. Lovable is optional: it can be used as a visual editor/preview, but the production architecture does not require Lovable Cloud or Lovable AI.
+This folder is the standalone, GitHub-owned implementation of **Property Development, Augmented**. The production architecture does not require Lovable Cloud or Lovable AI.
 
-## What is included
+## Core design
 
-### Front end — Next.js
-Public authority/SEO site plus an authenticated-style workspace UI for:
+**SITE → BUILD → PROVE** is implemented as an evidence-first operating system rather than a generic chatbot. The platform combines deterministic development calculations, current public/paid data adapters, specialist AI agents, secure project documents, project-control registers and a human-reviewed evidence graph.
 
-- SITE Intelligence
-- Planning Intelligence & evidence matrices
-- Development Appraisal / Residual Land Value / finance calculators
-- Quote Comparator
-- Risk Register
-- Variation Tracker
-- Decision Log
-- Document Intelligence
-- Consultant Brief Builder
-- Weekly Reporting
-- PROVE Evidence Room
-- Multi-format Report Studio
-- Deep Research Agent
-- AI Project Assistant with specialist modes
-- SEO & Authority Studio
-- Product library / consultancy funnel
+The distinctive rule is simple: **if evidence is missing, record “not established” rather than manufacture confidence.**
 
-### Back end — FastAPI
-Independent REST API with PostgreSQL/SQLite persistence, JWT auth, upload/document extraction, AI provider abstraction, report generation, payments and live-data adapters.
+## Product surface
 
-### Live/authoritative data adapters
+The Next.js workspace contains:
 
-1. **Planning Data API** — `planning.data.gov.uk` constraints and planning/housing entities. The government service is beta, so the UI/API carries coverage/completeness caveats.
-2. **HM Land Registry Price Paid Data** — linked-data SPARQL by postcode with Crown copyright/OGL attribution and a clear 'not a valuation' limitation.
-3. **Environment Agency flood monitoring** — nearby real-time warnings/alerts; not safety-critical advice.
-4. **GOV.UK Search API** — policy/document discovery; current wording must be verified in authoritative documents.
-5. **Companies House API** — optional API key for live company search.
-6. **Energy performance data** — configurable current EPC API adapter because the legacy Open Data Communities endpoint has been retired/replaced.
-7. **Google Trends RSS** — trending topics only; never presented as keyword volume.
-8. **Semrush** — optional measured keyword adapter. Search volume/difficulty is deliberately null unless measured data is connected.
-9. **User documents** — PDF, DOCX, XLSX, CSV, TXT/JSON extraction with SHA-256 evidence identifiers.
+- Specialist Agent Studio with Development Director, Site, Planning Evidence, Commercial, Procurement, Project Controls, Document Auditor, Consultant Brief, Reporting, SEO/Authority, Deep Research and Evidence Challenger agents
+- SITE Intelligence and current Policy & Standards Library
+- Development Appraisal, Residual Land Value, finance and deterministic 49-case Scenario Lab
+- Planning Intelligence and consultant briefing
+- Quote Comparator, Risk Register, Variation Tracker, Decision Log and Weekly Reporting
+- private Document Vault with ownership, retention, container limits, prompt-injection flags and SHA-256 provenance
+- Evidence Review Room with claim-by-claim human verification/contestation
+- fingerprinted Project Decision Pack PDF/JSON exports
+- authenticated state-change Audit Trail
+- Report Studio, Deep Research, SEO/Authority and products/consultancy workflows
 
-## AI controls
+## Evidence architecture
 
-The API ships specialist modes:
+Specialist AI runs persist:
 
-- Site Analyst
-- Planning Evidence Analyst
-- Procurement Analyst
-- Project Controls Analyst
-- Report Writer
-- SEO Strategist
+- model/run identifier
+- input and output SHA-256 fingerprints
+- consulted web-source metadata where applicable
+- instruction-injection/security flags
+- review state
+- structured findings classified as `confirmed_fact`, `assumption`, `professional_opinion`, `inference`, `decision` or `not_established`
+- confidence, materiality, source refs and verification action for each claim
 
-Every system prompt explicitly separates facts, assumptions and professional judgement. Missing evidence must be labelled **not established**. Variations must not be marked approved unless approval is evidenced.
+AI outputs remain working material until human reviewed. Evidence health is deliberately a **review state**, never a fake probability of planning or commercial success.
 
-## Product/report assets
+## Private AI and documents
 
-`assets/` contains the built lead magnet, AI Property Developer OS spreadsheet, playbook and book manuscript. The API can generate new PDF, DOCX, XLSX, CSV and JSON reports.
+Private project AI uses the OpenAI Responses API with provider-side response storage explicitly requested as disabled (`store: false`). Uploaded/web/project material is treated as **untrusted evidence**, not instructions.
 
-## Local start
+The secure document flow supports PDF, DOCX, XLSX/XLSM, CSV, TXT, Markdown and JSON with owner/project scoping, file-size limits, Office-container expansion checks, PDF limits, retention dates, deletion, SHA-256 identifiers and server-side Document Auditor analysis. Spreadsheet macros are never executed.
+
+## Data/source layer
+
+Adapters currently include:
+
+1. Planning Data API — beta coverage caveats remain visible.
+2. HM Land Registry Price Paid Data — source-backed comparables, explicitly not a valuation.
+3. Environment Agency flood monitoring.
+4. GOV.UK policy discovery.
+5. Companies House API when configured.
+6. Current EPC API adapter when configured.
+7. Google Trends RSS — trends only, never fabricated keyword volume.
+8. Semrush measured-keyword adapter when configured.
+9. Google Search Console when configured.
+10. OpenAI live web research with consulted-source metadata.
+
+The Policy & Standards Library includes current national planning/building sources but explicitly refuses to treat national discovery as proof of a site's complete Local Plan, SPD, validation, CIL or authority-specific position.
+
+## Security/operations
+
+- strong JWT secret required in production
+- owner-scoped projects/documents/evidence
+- same-origin Next.js `/backend` gateway by default
+- CSP, HSTS, frame denial, nosniff, referrer and permissions policies
+- request IDs and server timing
+- baseline compute/auth rate limiting (edge/WAF distributed controls still recommended)
+- authenticated mutation audit events without request bodies/secrets
+- password reset flow
+- Stripe webhook entitlement model
+- production readiness endpoint that blocks “ready” status when required credentials/legal identity are missing
+- dedicated GitHub Actions CI for Python compile/routes/tests/audit and frontend lint/type/build/audit
+- production dependency vulnerability audits fail the build; vulnerabilities are not waived merely to obtain a green badge
+
+## Run locally
 
 ```bash
 cp .env.example .env
-# change JWT_SECRET and database password
-# add OPENAI_API_KEY for live AI
+# set a strong database password + JWT secret
+# add any provider credentials you intend to test
 
 docker compose up --build
 ```
@@ -70,37 +89,40 @@ Web: `http://localhost:3000`
 API docs: `http://localhost:8080/docs`  
 Health: `http://localhost:8080/health`
 
-## Production deployment without Lovable
+The browser uses `/backend`; the Next.js server proxies it to `PDA_API_ORIGIN`. This allows the same frontend image to move between hosting providers without baking a private API origin into browser JavaScript.
 
-The two services are ordinary containers. Deploy the **web** image to Vercel, Cloudflare Container/Workers-compatible hosting, DigitalOcean, Railway, Render, Fly.io or Kubernetes. Deploy the **api** image anywhere supporting Docker plus PostgreSQL. Configure `NEXT_PUBLIC_API_BASE_URL` to the public API origin.
+## Production launch gate
 
-For the existing Sianlk infrastructure, the simplest path is DigitalOcean App Platform for API/Postgres and Vercel or DigitalOcean for Next.js. GitHub remains the source of truth.
+Before a paid/public launch, `/api/v1/system/readiness` must report `ready`. Required production items include:
 
-## Required one-time production credentials
+- non-SQLite persistent database
+- strong JWT secret
+- HTTPS site + production CORS
+- persistent document storage
+- OpenAI key for AI features
+- Stripe secret/webhook + configured product/service price IDs
+- transactional email + notification address
+- legal operator identity and privacy contact
 
-The code works without Lovable, but external services cannot be authenticated by source code alone. Configure only the providers you intend to use:
+Optional adapters such as Companies House, EPC, Search Console, Semrush and analytics report separately and do not masquerade as configured.
 
-- `OPENAI_API_KEY`
-- `COMPANIES_HOUSE_API_KEY`
-- current EPC API credentials/endpoint
-- Stripe secret, webhook secret and price IDs
-- optional Semrush credentials
-- domain/DNS
-- analytics/Search Console ownership
+## Deployment
 
-Do **not** commit these secrets.
+The web and API are ordinary containers. GitHub remains the source of truth. A typical deployment is:
 
-## SEO architecture
+- Next.js web container (or compatible Node host)
+- FastAPI container
+- managed PostgreSQL
+- persistent/object storage for project documents
+- TLS/WAF/edge rate limiting
+- secrets supplied by the host, never committed
 
-The Next.js site includes unique metadata, canonical URLs, sitemap, robots directives, crawlable internal links and `SoftwareApplication`/`WebSite` JSON-LD. Tool pages are built around high-intent UK clusters such as planning application AI, planning constraints checker, property development appraisal calculator, construction quote comparison and construction workflow automation.
+Set `PDA_API_ORIGIN` on the **web server/container** to the internal/public API origin. Keep the browser on the default `/backend` route unless there is a deliberate reason to expose a separate CORS API origin.
 
-Google Search Central guidance should remain the source of truth: useful crawlable content, descriptive titles, semantic links, sitemaps and structured data help Google understand the site but do not guarantee rankings.
+## Commercial/provider credentials
 
-## Existing ecosystem
+Source code cannot create third-party authority on its own. Production owners must supply and manage the intended OpenAI, Stripe, email, Companies House/EPC, SEO/Search Console, analytics, domain/DNS and hosting credentials.
 
-This platform can sit above and link into:
+## Legal/trust
 
-- `Sianlk/buildquote` — smart construction quoting
-- `Sianlk/comppropdata` — property intelligence / comparable data
-
-Those products can later be exposed as internal services behind the same API gateway.
+Public `/privacy`, `/terms` and `/trust` pages are implemented. Paid launch is blocked by the readiness endpoint until `LEGAL_OPERATOR_NAME` and `PRIVACY_CONTACT_EMAIL` are configured. The operator should still obtain legal review appropriate to the exact entity, customer type, insurance, service scope and commercial contract before accepting material paid engagements.
