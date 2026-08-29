@@ -1,4 +1,4 @@
-export const API_BASE=(process.env.NEXT_PUBLIC_API_BASE_URL||'').replace(/\/$/,'');
+export const API_BASE=(process.env.NEXT_PUBLIC_API_BASE_URL||'/backend').replace(/\/$/,'');
 
 export const endpoints={
   health:'/health',status:'/api/v1/system/status',sources:'/api/v1/data/sources',site:'/api/v1/site/intelligence/full',
@@ -20,7 +20,6 @@ export function setToken(value:string){if(typeof window==='undefined')return;ses
 export function clearToken(){if(typeof window==='undefined')return;sessionStorage.removeItem('pda_token');localStorage.removeItem('pda_token')}
 
 export async function api<T=any>(path:string,options:Options={}):Promise<T>{
-  if(!API_BASE)throw new Error('Live API is not configured. Set NEXT_PUBLIC_API_BASE_URL.');
   const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),options.timeoutMs??45000);const token=getToken();
   try{
     const isForm=typeof FormData!=='undefined'&&options.body instanceof FormData;
