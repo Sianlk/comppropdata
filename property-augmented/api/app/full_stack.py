@@ -68,6 +68,9 @@ def me(authorization:str|None=Header(default=None),s:Session=Depends(db)):
  if not user: raise HTTPException(401,'User not found')
  return user
 
+def approval_evidenced(data:dict[str,Any])->bool:
+ return bool(data.get('approval_evidence') or data.get('approval') or (data.get('approved_by') and data.get('approved_at')))
+
 class Auth(BaseModel): email:str; password:str=Field(min_length=8,max_length=128); name:str=''
 class ProjectIn(BaseModel): name:str; address:str=''; postcode:str=''; strategy:str=''; metadata:dict[str,Any]=Field(default_factory=dict)
 class RegisterIn(BaseModel): kind:str; title:str=''; status:str='Open'; data:dict[str,Any]=Field(default_factory=dict)
@@ -103,12 +106,16 @@ def project_get(project_id:int,user:User=Depends(me),s:Session=Depends(db)):
  return {'id':p.id,'name':p.name,'address':p.address,'postcode':p.postcode,'strategy':p.strategy,'registers':[{'id':x.id,'kind':x.kind,'title':x.title,'status':x.status,'data':json.loads(x.data_json or '{}')} for x in regs]}
 @app.get('/api/v1/projects/{project_id}/registers/{kind}')
 def register_list(project_id:int,kind:str,user:User=Depends(me),s:Session=Depends(db)):
- return [{'id':x.id,'kind':x.kind,'title':x.title,'status':x.status,'data':json.loads(x.data_json or '{}'),'updated_at':x.updated_at} for x in s.query(Register).filter(Register.project_id==project_id,Register.user_id==user.id,Register.kind==kind).all()]
+ p=s.get(Project,project_id)
+ if not p or p.user_id!=user.id: raise HTTPException(404,'Project not found')
+ return [{'id':x.id,'kind':x.kind,'title':x.title,'status':x.status,'data':json.loads(x.data_json or '{}'),'updated_at':x.updated_at} for x in s.query(Register).filter(Register.project_id==project_id,Register.user_id==user.id,Register.kind==kind).order_by(Register.updated_at.desc()).all()]
 @app.post('/api/v1/projects/{project_id}/registers')
 def register_add(project_id:int,r:RegisterIn,user:User=Depends(me),s:Session=Depends(db)):
  p=s.get(Project,project_id)
  if not p or p.user_id!=user.id: raise HTTPException(404,'Project not found')
- x=Register(user_id=user.id,project_id=project_id,kind=r.kind,title=r.title,status=r.status,data_json=json.dumps(r.data)); s.add(x); s.commit(); s.refresh(x); return {'id':x.id,'status':x.status}
+ kind=r.kind.strip().lower(); status=r.status.strip() or 'Open'
+ if kind=='variation' and status.lower()=='approved' and not approval_evidenced(r.data): raise HTTPException(422,'Variation cannot be marked approved without explicit approval evidence')
+ x=Register(user_id=user.id,project_id=project_id,kind=kind,title=r.title,status=status,data_json=json.dumps(r.data)); s.add(x); p.updated_at=datetime.now(timezone.utc); s.add(p); s.commit(); s.refresh(x); return {'id':x.id,'status':x.status}
 @app.post('/api/v1/leads')
 def lead(r:LeadIn,s:Session=Depends(db)):
  if not r.consent: raise HTTPException(422,'Consent required for marketing email capture')
