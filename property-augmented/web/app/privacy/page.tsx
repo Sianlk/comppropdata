@@ -1,0 +1,1 @@
+export const metadata={title:'Privacy'};export default function Privacy(){return <main><section className="hero compact"><h1>Privacy</h1><p className="lede">Publish the final privacy notice so it exactly matches the production legal entity, analytics, AI provider, payment processor, retention and project-document processing configured at launch.</p></section></main>}
