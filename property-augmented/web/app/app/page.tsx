@@ -1,1 +1,1 @@
-import {redirect} from 'next/navigation';export default function App(){redirect('/app/site-intelligence')}
+import AppDashboard from '@/components/AppDashboard';export default function App(){return <AppDashboard/>}
