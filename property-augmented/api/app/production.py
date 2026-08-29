@@ -1,9 +1,12 @@
-# Production composition root: core API + persistence/commerce + intelligence + private provider adapters + agents + secure documents + diligence + operational trust/readiness/security.
+# Production composition root: independent data/AI platform plus evidence, geospatial, market, development, diligence and operational controls.
 from .bootstrap import app
 from . import extensions as _extensions  # noqa: F401,E402
 from . import intelligence as _intelligence  # noqa: F401,E402
 from . import provider_privacy as _provider_privacy  # noqa: F401,E402
 from . import agents as _agents  # noqa: F401,E402
+from . import geo_intelligence as _geo_intelligence  # noqa: F401,E402
+from . import market_intelligence as _market_intelligence  # noqa: F401,E402
+from . import development_strategy as _development_strategy  # noqa: F401,E402
 from . import documents as _documents  # noqa: F401,E402
 from . import due_diligence as _due_diligence  # noqa: F401,E402
 from . import operations as _operations  # noqa: F401,E402
