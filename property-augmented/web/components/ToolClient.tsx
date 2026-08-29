@@ -1,16 +1,16 @@
 'use client';
-import{useEffect,useMemo,useState}from'react';import{useSearchParams}from'next/navigation';import{api,apiConfigured,apiDownload,API_BASE,endpoints}from'@/lib/api';import type{Tool}from'@/lib/tools';
+import{useEffect,useMemo,useState}from'react';import{api,apiConfigured,apiDownload,API_BASE,endpoints}from'@/lib/api';import type{Tool}from'@/lib/tools';
 
 type Source={name?:string;url?:string;retrieved_at?:string;caveat?:string};
 const registerKinds:Record<string,string>={'risk-register':'risk','variation-tracker':'variation','decision-log':'decision','evidence-room':'evidence'};
 const modes:Record<string,string>={'planning-intelligence':'planning-evidence','quote-comparator':'procurement','risk-register':'project-controls','variation-tracker':'project-controls','decision-log':'project-controls','consultant-brief':'report-writer','weekly-reporting':'report-writer','evidence-room':'project-controls','ai-assistant':'report-writer'};
 function sourcesOf(value:any,out:Source[]=[]):Source[]{if(!value||typeof value!=='object')return out;if(typeof value.url==='string'&&(value.name||value.caveat||value.retrieved_at))out.push(value);for(const v of Object.values(value))sourcesOf(v,out);return out}
 function n(v:string){const x=Number(v);return Number.isFinite(x)?x:0}
-export default function ToolClient({tool}:{tool:Tool}){
- const search=useSearchParams();const[postcode,setPostcode]=useState(''),[address,setAddress]=useState(''),[prompt,setPrompt]=useState(''),[file,setFile]=useState<File|null>(null),[result,setResult]=useState<any>(null),[busy,setBusy]=useState(false),[error,setError]=useState(''),[format,setFormat]=useState('pdf'),[projectId,setProjectId]=useState(''),[compounding,setCompounding]=useState('simple');
+export default function ToolClient({tool,initialProjectId=''}:{tool:Tool;initialProjectId?:string}){
+ const[postcode,setPostcode]=useState(''),[address,setAddress]=useState(''),[prompt,setPrompt]=useState(''),[file,setFile]=useState<File|null>(null),[result,setResult]=useState<any>(null),[busy,setBusy]=useState(false),[error,setError]=useState(''),[format,setFormat]=useState('pdf'),[projectId,setProjectId]=useState(initialProjectId),[compounding,setCompounding]=useState('simple');
  const[calc,setCalc]=useState<Record<string,string>>({acquisition:'',transaction_costs:'',construction:'',professional_fees:'',finance:'',contingency:'',other_costs:'',gdv:'',rental_income_annual:'',holding_months:'12',target_profit:'',principal:'',annual_rate_pct:'',months:'12'});
- const live=apiConfigured();useEffect(()=>{const q=search.get('project');const saved=typeof window!=='undefined'?localStorage.getItem('pda_project'):'';const id=q||saved||'';setProjectId(id);if(q&&typeof window!=='undefined')localStorage.setItem('pda_project',q)},[search]);
- const foundSources=useMemo(()=>Array.from(new Map(sourcesOf(result).map(s=>[s.url||s.name, s])).values()),[result]);
+ const live=apiConfigured();useEffect(()=>{const saved=typeof window!=='undefined'?localStorage.getItem('pda_project'):'';const id=initialProjectId||saved||'';setProjectId(id);if(initialProjectId&&typeof window!=='undefined')localStorage.setItem('pda_project',initialProjectId)},[initialProjectId]);
+ const foundSources=useMemo(()=>Array.from(new Map(sourcesOf(result).map(s=>[s.url||s.name,s])).values()),[result]);
  function setField(k:string,v:string){setCalc(x=>({...x,[k]:v}))}
  async function registerRun(){if(!projectId)throw new Error('Select or create a project first.');const kind=registerKinds[tool.slug];const path=`/api/v1/projects/${projectId}/registers/${kind}`;if(!prompt.trim())return api(path);const data=JSON.parse(prompt);let status=data.status||'Open';if(kind==='variation'&&!data.approval&&!data.approved)status='Approval not evidenced';await api(`/api/v1/projects/${projectId}/registers`,{method:'POST',body:JSON.stringify({kind,title:data.title||data.description||tool.title,status,data})});return api(path)}
  async function run(){setBusy(true);setError('');try{
