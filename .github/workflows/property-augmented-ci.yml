@@ -17,8 +17,8 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install -r requirements.txt -r requirements-dev.txt
-      - run: python -m py_compile app/main.py app/full_stack.py app/bootstrap.py app/extensions.py app/intelligence.py app/agents.py app/documents.py app/policy_security.py app/production.py
-      - run: python -c "from app.production import app; paths={r.path for r in app.routes}; required={'/health','/api/v1/system/status','/api/v1/auth/login','/api/v1/auth/forgot-password','/api/v1/projects','/api/v1/site/intelligence/full','/api/v1/research/web-deep','/api/v1/policy/library','/api/v1/policy/search','/api/v1/agents','/api/v1/agents/{slug}/run','/api/v1/agents/committee','/api/v1/evidence/claims','/api/v1/evidence/health','/api/v1/documents/secure-upload','/api/v1/documents/{document_id}/analyse','/api/v1/seo/strategy','/api/v1/leads/capture','/api/v1/resources/site-triage.pdf'}; assert required.issubset(paths), required-paths"
+      - run: python -m py_compile app/main.py app/full_stack.py app/bootstrap.py app/extensions.py app/intelligence.py app/provider_privacy.py app/agents.py app/documents.py app/readiness.py app/policy_security.py app/production.py
+      - run: python -c "from app.production import app; paths={r.path for r in app.routes}; required={'/health','/api/v1/system/status','/api/v1/system/readiness','/api/v1/auth/login','/api/v1/auth/forgot-password','/api/v1/projects','/api/v1/site/intelligence/full','/api/v1/research/web-deep','/api/v1/policy/library','/api/v1/policy/search','/api/v1/agents','/api/v1/agents/{slug}/run','/api/v1/agents/committee','/api/v1/evidence/claims','/api/v1/evidence/health','/api/v1/documents/secure-upload','/api/v1/documents/{document_id}/analyse','/api/v1/seo/strategy','/api/v1/leads/capture','/api/v1/resources/site-triage.pdf'}; assert required.issubset(paths), required-paths"
       - run: PYTHONPATH=. pytest --confcutdir=tests -q tests
       - name: Python dependency audit
         run: pip-audit -r requirements.txt
@@ -48,5 +48,6 @@ jobs:
         env:
           NEXT_PUBLIC_SITE_URL: https://example.com
           NEXT_PUBLIC_API_BASE_URL: https://api.example.com
+          PDA_API_ORIGIN: https://api.example.com
       - name: Production dependency audit
         run: npm audit --omit=dev --audit-level=high
