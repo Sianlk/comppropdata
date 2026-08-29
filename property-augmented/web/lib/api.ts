@@ -7,12 +7,14 @@ export const endpoints={
   upload:'/api/v1/documents/upload',report:'/api/v1/reports/generate',seo:'/api/v1/seo/strategy',trends:'/api/v1/seo/trending-now',
   measuredKeywords:'/api/v1/seo/measured-keywords',searchConsole:'/api/v1/seo/search-console',projects:'/api/v1/projects',
   login:'/api/v1/auth/login',register:'/api/v1/auth/register',me:'/api/v1/auth/me',products:'/api/v1/products',
-  leads:'/api/v1/leads',consultancy:'/api/v1/consultancy/intake'
+  leads:'/api/v1/leads/capture',consultancy:'/api/v1/consultancy/submit',checkout:'/api/v1/payments/checkout',
+  siteTriage:'/api/v1/resources/site-triage.pdf',osGeneratedDownload:'/api/v1/products/ai-property-developer-os/generated-download'
 } as const;
 
 type Options=RequestInit&{timeoutMs?:number};
 export class ApiError extends Error{status:number;body:string;constructor(status:number,body:string){super(body||`Request failed ${status}`);this.status=status;this.body=body}}
 export const apiConfigured=()=>Boolean(API_BASE);
+export const absoluteApi=(path:string)=>path.startsWith('http')?path:`${API_BASE}${path}`;
 export function getToken(){if(typeof window==='undefined')return null;return sessionStorage.getItem('pda_token')||localStorage.getItem('pda_token')}
 export function setToken(value:string){if(typeof window==='undefined')return;sessionStorage.setItem('pda_token',value);localStorage.removeItem('pda_token')}
 export function clearToken(){if(typeof window==='undefined')return;sessionStorage.removeItem('pda_token');localStorage.removeItem('pda_token')}
