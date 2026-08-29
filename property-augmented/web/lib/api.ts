@@ -1,12 +1,12 @@
 export const API_BASE=(process.env.NEXT_PUBLIC_API_BASE_URL||'').replace(/\/$/,'');
 
 export const endpoints={
-  health:'/health',status:'/api/v1/system/status',sources:'/api/v1/data/sources',site:'/api/v1/site/intelligence',
+  health:'/health',status:'/api/v1/system/status',sources:'/api/v1/data/sources',site:'/api/v1/site/intelligence/full',
   analyse:'/api/v1/ai/analyse',deepResearch:'/api/v1/research/deep',appraisal:'/api/v1/calculators/appraisal',
   residual:'/api/v1/calculators/residual',finance:'/api/v1/calculators/finance',quotes:'/api/v1/quotes/compare',
   upload:'/api/v1/documents/upload',report:'/api/v1/reports/generate',seo:'/api/v1/seo/strategy',trends:'/api/v1/seo/trending-now',
   measuredKeywords:'/api/v1/seo/measured-keywords',searchConsole:'/api/v1/seo/search-console',projects:'/api/v1/projects',
-  login:'/api/v1/auth/login',register:'/api/v1/auth/register',me:'/api/v1/auth/me',products:'/api/v1/products',
+  login:'/api/v1/auth/login',register:'/api/v1/auth/register',me:'/api/v1/auth/me',forgotPassword:'/api/v1/auth/forgot-password',resetPassword:'/api/v1/auth/reset-password',products:'/api/v1/products',
   leads:'/api/v1/leads/capture',consultancy:'/api/v1/consultancy/submit',checkout:'/api/v1/payments/checkout',
   siteTriage:'/api/v1/resources/site-triage.pdf',osGeneratedDownload:'/api/v1/products/ai-property-developer-os/generated-download'
 } as const;

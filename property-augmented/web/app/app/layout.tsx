@@ -1,0 +1,1 @@
+import type{Metadata}from'next';import WorkspaceGate from'@/components/WorkspaceGate';export const metadata:Metadata={robots:{index:false,follow:false}};export default function WorkspaceLayout({children}:{children:React.ReactNode}){return <WorkspaceGate>{children}</WorkspaceGate>}
