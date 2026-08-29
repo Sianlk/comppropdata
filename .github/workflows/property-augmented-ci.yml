@@ -36,8 +36,11 @@ jobs:
           cache: npm
           cache-dependency-path: property-augmented/web/package.json
       - run: npm install
+      - run: npm run lint
       - run: npm run typecheck
       - run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: https://example.com
           NEXT_PUBLIC_API_BASE_URL: https://api.example.com
+      - name: Production dependency audit
+        run: npm audit --omit=dev --audit-level=high
