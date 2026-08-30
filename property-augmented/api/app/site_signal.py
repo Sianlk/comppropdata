@@ -3,8 +3,8 @@ from __future__ import annotations
 import io
 import json
 
-from fastapi import Depends
-from fastapi.responses import StreamingResponse
+from fastapi import Depends, Request
+from fastapi.responses import RedirectResponse, StreamingResponse
 from pydantic import BaseModel
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
@@ -59,6 +59,13 @@ def _site_signal_pdf() -> bytes:
     ])
     doc.build(story)
     return buf.getvalue()
+
+
+@app.middleware('http')
+async def retire_legacy_site_triage(request: Request, call_next):
+    if request.url.path == '/api/v1/resources/site-triage.pdf':
+        return RedirectResponse('/api/v1/resources/site-signal.pdf', status_code=307)
+    return await call_next(request)
 
 
 @app.get('/api/v1/resources/site-signal.pdf')
