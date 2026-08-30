@@ -5,5 +5,6 @@ COPY api/requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 COPY api/app ./app
 COPY assets /assets
+COPY web/content/book.json /content/book.json
 ENV PRODUCT_ASSET_DIR=/assets
 CMD ["uvicorn","app.production:app","--host","0.0.0.0","--port","8080","--proxy-headers"]
