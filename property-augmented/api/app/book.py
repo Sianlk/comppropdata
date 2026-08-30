@@ -15,19 +15,25 @@ from reportlab.platypus import PageBreak, Paragraph, SimpleDocTemplate, Spacer
 from .bootstrap import app
 
 
-def _book_path() -> Path:
-    candidates = [
-        Path('/content/book.json'),
-        Path(__file__).resolve().parents[2] / 'web' / 'content' / 'book.json',
-    ]
+def _content_dir() -> Path:
+    candidates = [Path('/content'), Path(__file__).resolve().parents[2] / 'web' / 'content']
     for p in candidates:
-        if p.exists():
+        if (p / 'book.json').exists():
             return p
     raise FileNotFoundError('Published book source is not available in this deployment')
 
 
 def _load_book() -> dict:
-    return json.loads(_book_path().read_text(encoding='utf-8'))
+    root = _content_dir()
+    book = json.loads((root / 'book.json').read_text(encoding='utf-8'))
+    extras: dict[str,list] = {}
+    for name in ('book-expansion.json','book-expansion-final.json'):
+        p = root / name
+        if p.exists():
+            extras.update(json.loads(p.read_text(encoding='utf-8')))
+    for chapter in book.get('chapters',[]):
+        chapter['sections'] = [*chapter.get('sections',[]), *extras.get(chapter.get('slug',''),[])]
+    return book
 
 
 def _word_count(book: dict) -> int:
@@ -53,50 +59,35 @@ def _book_pdf() -> bytes:
     meta = ParagraphStyle('Meta', parent=styles['BodyText'], fontName='Helvetica-Bold', fontSize=8, leading=12, textColor=colors.HexColor('#9A744B'), spaceAfter=7)
     note = ParagraphStyle('Note', parent=styles['BodyText'], fontName='Helvetica', fontSize=8.4, leading=13, textColor=colors.HexColor('#69635C'), backColor=colors.HexColor('#F1ECE4'), borderPadding=7, spaceBefore=8, spaceAfter=8)
     story = [
-        Spacer(1, 25*mm),
-        Paragraph(book['title'].upper(), meta),
-        Paragraph(book['title'], title),
-        Paragraph(book['subtitle'], subtitle),
+        Spacer(1, 25*mm), Paragraph(book['title'].upper(), meta), Paragraph(book['title'], title), Paragraph(book['subtitle'], subtitle),
         Paragraph(f"{book['edition']} · Published {book['published']} · Reviewed {book['reviewed']}", meta),
-        Paragraph(f"16 chapters · approximately {words:,} words · digital edition", meta),
-        Spacer(1, 8*mm),
-        Paragraph(book['description'], subtitle),
-        Paragraph('INPUT → STRUCTURE → ANALYSE → VERIFY → DECIDE → LOG', note),
-        PageBreak(),
+        Paragraph(f"{len(book['chapters'])} chapters · approximately {words:,} words · digital edition", meta), Spacer(1, 8*mm), Paragraph(book['description'], subtitle),
+        Paragraph('INPUT → STRUCTURE → ANALYSE → VERIFY → DECIDE → LOG', note), PageBreak(),
         Paragraph('Publication note', chapter),
         Paragraph('Published by Property Development, Augmented. This is a professional educational and decision-support publication. It does not replace site-specific planning, legal, valuation, structural, cost, tax, finance, fire, environmental or other regulated professional advice. Third-party sources remain subject to their own copyright, licence and attribution terms.', body),
         Paragraph('This edition is intentionally versioned. Planning policy, regulation, data services, provider terms and statutory fees change; the online edition and live platform should be checked for the latest review date before relying on time-sensitive material.', note),
-        PageBreak(),
-        Paragraph('Contents', chapter),
+        PageBreak(), Paragraph('Contents', chapter),
     ]
     for c in book['chapters']:
         story.append(Paragraph(f"{c['number']}. {c['title']}", body))
     story.append(PageBreak())
     for idx, c in enumerate(book['chapters']):
-        story.extend([
-            Paragraph(f"CHAPTER {c['number']}", meta),
-            Paragraph(c['title'], chapter),
-            Paragraph(c['standfirst'], subtitle),
-        ])
+        story.extend([Paragraph(f"CHAPTER {c['number']}", meta), Paragraph(c['title'], chapter), Paragraph(c['standfirst'], subtitle)])
         for section in c['sections']:
             story.append(Paragraph(section['heading'], heading))
             for paragraph in section['body']:
                 story.append(Paragraph(paragraph, body))
         story.append(Paragraph('Evidence rule: verify live planning policy, title, legal, technical, cost, tax, finance and safety matters against the authoritative source and the appropriate qualified professional or statutory authority where required.', note))
-        if idx < len(book['chapters'])-1:
-            story.append(PageBreak())
+        if idx < len(book['chapters'])-1: story.append(PageBreak())
     story.extend([PageBreak(), Paragraph('Primary sources and live-reference starting points', chapter)])
-    for source in book.get('sources', []):
-        story.append(Paragraph(f"<b>{source['name']}</b><br/>{source['url']}", body))
+    for source in book.get('sources', []): story.append(Paragraph(f"<b>{source['name']}</b><br/>{source['url']}", body))
     story.append(Paragraph('This digital edition is versioned because planning policy, data services, regulation and provider contracts change. The online edition should be checked for the latest review date.', note))
-    doc.build(story)
-    return buf.getvalue()
+    doc.build(story); return buf.getvalue()
 
 
 @app.get('/api/v1/resources/property-development-augmented-book.pdf')
 def book_pdf_resource():
-    raw = _book_pdf()
-    return StreamingResponse(io.BytesIO(raw), media_type='application/pdf', headers={'Content-Disposition':'attachment; filename="property-development-augmented-first-digital-edition.pdf"','Cache-Control':'public, max-age=3600'})
+    raw = _book_pdf(); return StreamingResponse(io.BytesIO(raw), media_type='application/pdf', headers={'Content-Disposition':'attachment; filename="property-development-augmented-first-digital-edition.pdf"','Cache-Control':'public, max-age=3600'})
 
 
 @app.get('/api/v1/resources/book')
