@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import io
 import json
+import re
 from pathlib import Path
 
 from fastapi.responses import StreamingResponse
@@ -29,10 +30,20 @@ def _load_book() -> dict:
     return json.loads(_book_path().read_text(encoding='utf-8'))
 
 
+def _word_count(book: dict) -> int:
+    text = [book.get('title',''), book.get('subtitle',''), book.get('description','')]
+    for chapter in book.get('chapters',[]):
+        text.extend([chapter.get('title',''),chapter.get('standfirst','')])
+        for section in chapter.get('sections',[]):
+            text.append(section.get('heading',''))
+            text.extend(section.get('body',[]))
+    return len(re.findall(r"\b[\w’'-]+\b", ' '.join(text)))
+
+
 def _book_pdf() -> bytes:
-    book = _load_book()
+    book = _load_book(); words = _word_count(book)
     buf = io.BytesIO()
-    doc = SimpleDocTemplate(buf, pagesize=A4, rightMargin=19*mm, leftMargin=19*mm, topMargin=18*mm, bottomMargin=18*mm, title=book['title'], author='Property Development, Augmented Research Team')
+    doc = SimpleDocTemplate(buf, pagesize=A4, rightMargin=19*mm, leftMargin=19*mm, topMargin=18*mm, bottomMargin=18*mm, title=book['title'], author='Property Development, Augmented Research Team', subject=book['subtitle'], keywords='UK property development, planning intelligence, AI, site feasibility, development appraisal')
     styles = getSampleStyleSheet()
     title = ParagraphStyle('BookTitle', parent=styles['Title'], fontName='Times-Bold', fontSize=30, leading=32, textColor=colors.HexColor('#171714'), spaceAfter=12)
     subtitle = ParagraphStyle('BookSubtitle', parent=styles['BodyText'], fontName='Helvetica', fontSize=12, leading=18, textColor=colors.HexColor('#5A554D'), spaceAfter=14)
@@ -47,9 +58,14 @@ def _book_pdf() -> bytes:
         Paragraph(book['title'], title),
         Paragraph(book['subtitle'], subtitle),
         Paragraph(f"{book['edition']} · Published {book['published']} · Reviewed {book['reviewed']}", meta),
+        Paragraph(f"16 chapters · approximately {words:,} words · digital edition", meta),
         Spacer(1, 8*mm),
         Paragraph(book['description'], subtitle),
         Paragraph('INPUT → STRUCTURE → ANALYSE → VERIFY → DECIDE → LOG', note),
+        PageBreak(),
+        Paragraph('Publication note', chapter),
+        Paragraph('Published by Property Development, Augmented. This is a professional educational and decision-support publication. It does not replace site-specific planning, legal, valuation, structural, cost, tax, finance, fire, environmental or other regulated professional advice. Third-party sources remain subject to their own copyright, licence and attribution terms.', body),
+        Paragraph('This edition is intentionally versioned. Planning policy, regulation, data services, provider terms and statutory fees change; the online edition and live platform should be checked for the latest review date before relying on time-sensitive material.', note),
         PageBreak(),
         Paragraph('Contents', chapter),
     ]
@@ -85,5 +101,5 @@ def book_pdf_resource():
 
 @app.get('/api/v1/resources/book')
 def book_json_resource():
-    book = _load_book()
-    return {'title':book['title'],'subtitle':book['subtitle'],'edition':book['edition'],'published':book['published'],'reviewed':book['reviewed'],'chapter_count':len(book['chapters']),'chapters':[{'number':c['number'],'slug':c['slug'],'title':c['title'],'standfirst':c['standfirst']} for c in book['chapters']]}
+    book = _load_book(); words = _word_count(book)
+    return {'title':book['title'],'subtitle':book['subtitle'],'edition':book['edition'],'published':book['published'],'reviewed':book['reviewed'],'chapter_count':len(book['chapters']),'word_count':words,'estimated_reading_minutes':max(1,round(words/225)),'publication_status':'published-in-full','chapters':[{'number':c['number'],'slug':c['slug'],'title':c['title'],'standfirst':c['standfirst'],'section_count':len(c.get('sections',[]))} for c in book['chapters']]}
