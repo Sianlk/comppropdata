@@ -50,14 +50,25 @@ def walk_dicts(v):
  return out
 
 def as_number(v):
- if v is None:return None
+ if v is None or isinstance(v,bool):return None
+ if isinstance(v,(int,float)):return float(v)
  try:return float(re.sub(r'[^0-9.-]','',str(v)))
  except Exception:return None
+
+def metric(data,names:list[str]):
+ wanted={re.sub(r'[^a-z0-9]','',x.lower()) for x in names}
+ for row in walk_dicts(data):
+  for key,value in row.items():
+   norm=re.sub(r'[^a-z0-9]','',str(key).lower())
+   if norm in wanted:
+    n=as_number(value)
+    if n is not None:return n
+ return None
 
 class MarketScanRequest(BaseModel):
  postcode:str=Field(min_length=2,max_length=16);lists:list[str]=Field(default_factory=lambda:['unmodernised-properties','reduced-properties','slow-to-sell-properties']);max_price:float|None=Field(default=None,gt=0);strategy:str=Field(default='development opportunity',max_length=1200);radius_miles:int=Field(default=20,ge=1,le=200);results:int=Field(default=20,ge=10,le=100);page:int=Field(default=1,ge=1,le=25)
 class SiteValueRequest(BaseModel):
- postcode:str=Field(min_length=3,max_length=16);purchase_price:float=Field(ge=0);pre_development_sqft:float=Field(gt=0);post_development_sqft:float=Field(gt=0);professional_fees:float=Field(default=0,ge=0);finance:float=Field(default=0,ge=0);contingency:float=Field(default=0,ge=0);other_costs:float=Field(default=0,ge=0);target_profit:float=Field(default=0,ge=0);finish_quality:Literal['basic','medium','premium']='medium';project_type:Literal['new_build','refurb_heavy','refurb_moderate','refurb_light']='new_build'
+ postcode:str=Field(min_length=3,max_length=16);purchase_price:float=Field(default=0,ge=0);pre_development_sqft:float=Field(gt=0);post_development_sqft:float=Field(gt=0);acquisition_costs:float=Field(default=0,ge=0);professional_fees:float=Field(default=0,ge=0);professional_fee_pct:float=Field(default=12,ge=0,le=50);finance:float=Field(default=0,ge=0);contingency:float=Field(default=0,ge=0);contingency_pct:float=Field(default=7.5,ge=0,le=50);other_costs:float=Field(default=0,ge=0);target_profit:float=Field(default=0,ge=0);target_profit_pct_gdv:float=Field(default=20,ge=0,le=80);finish_quality:Literal['basic','medium','premium']='medium';project_type:Literal['new_build','refurb_heavy','refurb_moderate','refurb_light']='new_build';unit_mix:dict[str,int]=Field(default_factory=dict)
 
 agents.AGENTS.update({'deal-scout':{'name':'Development Deal Scout','stage':'SITE','purpose':'Prioritise licensed market opportunities for further investigation using price, planning and development evidence.','instruction':'Never scrape prohibited portals, recommend purchase, call a listing undervalued from asking-price evidence alone, or infer permission. Rank investigation priority and evidence gaps only.','keywords':['deal','listing','below market','development opportunity','sourcing']},'land-title':{'name':'Land & Title Evidence Analyst','stage':'SITE','purpose':'Challenge title, registered-land, boundary, UPRN and ownership evidence before development reliance.','instruction':'INSPIRE absence does not prove unregistered land. Distinguish title plan, index polygon, address/UPRN and OS mapping. Require official/legal evidence for title conclusions.','keywords':['title','freehold','unregistered','boundary','uprn','land registry']}})
 
@@ -90,8 +101,29 @@ async def deal_scan(r:MarketScanRequest,user:stack.User=Depends(stack.me),s:Sess
 
 @app.post('/api/v1/development/site-value')
 async def site_value(r:SiteValueRequest,user:stack.User=Depends(stack.me)):
- build,market,sold,gdv,calc=await asyncio.gather(propertydata('build-cost',{'postcode':r.postcode,'internal_area':r.post_development_sqft,'finish_quality':r.finish_quality,'project_type':r.project_type}),propertydata('prices-per-sqf',{'postcode':r.postcode}),propertydata('sold-prices-per-sqf',{'postcode':r.postcode}),propertydata('development-gdv',{'postcode':r.postcode,'sqft':r.post_development_sqft}),propertydata('development-calculator',{'postcode':r.postcode,'purchase_price':r.purchase_price,'sqft_pre_development':r.pre_development_sqft,'sqft_post_development':r.post_development_sqft}))
- return {'purchase_price':r.purchase_price,'build_cost_evidence':build,'asking_market_psf':market,'sold_market_psf':sold,'provider_gdv_model':gdv,'provider_development_model':calc,'additional_cost_inputs':{'professional_fees':r.professional_fees,'finance':r.finance,'contingency':r.contingency,'other_costs':r.other_costs,'target_profit':r.target_profit},'rule':'Site worth is residual to a deliverable scheme, evidence-backed GDV, build/abnormal costs, fees, finance, tax and target return. Asking-price or modelled data is not a Red Book valuation.','provider_configured':bool(PROPERTYDATA_API_KEY)}
+ build_params={'postcode':r.postcode,'internal_area':r.post_development_sqft,'finish_quality':r.finish_quality,'project_type':r.project_type}
+ build_task=propertydata('build-cost',build_params) if r.post_development_sqft>=600 else asyncio.sleep(0,result={'configured':bool(PROPERTYDATA_API_KEY),'status':'not_requested','reason':'build-cost provider requires internal_area >= 600 sqft'})
+ calc_type='refurbish' if r.project_type.startswith('refurb') else 'demolition'
+ calc_params={'postcode':r.postcode,'purchase_price':r.purchase_price,'sqft_pre_development':r.pre_development_sqft,'sqft_post_development':r.post_development_sqft,'project_type':calc_type,'finish_quality':r.finish_quality,'return_formatted_strings':'false'}
+ calc_task=propertydata('development-calculator',calc_params)
+ gdv_params={'postcode':r.postcode,'internal_area':r.post_development_sqft,'finish_quality':r.finish_quality,**{k:int(v) for k,v in r.unit_mix.items() if int(v)>0}}
+ gdv_task=propertydata('development-gdv',gdv_params) if r.unit_mix and r.post_development_sqft>=1000 else asyncio.sleep(0,result={'configured':bool(PROPERTYDATA_API_KEY),'status':'not_requested','reason':'development-gdv requires a residential unit mix and internal_area >= 1,000 sqft'})
+ build,market,sold,calc,gdv=await asyncio.gather(build_task,propertydata('prices-per-sqf',{'postcode':r.postcode}),propertydata('sold-prices-per-sqf',{'postcode':r.postcode}),calc_task,gdv_task)
+ build_cost=metric(build.get('data'),['total_build_cost','build_cost','total_cost','estimated_build_cost'])
+ provider_total_value=metric(calc.get('data'),['total_value','gdv','gross_development_value','post_development_value','end_value'])
+ provider_profit=metric(calc.get('data'),['profit','total_profit','development_profit'])
+ gdv_value=metric(gdv.get('data'),['gdv','gross_development_value','total_value','estimated_value']) or provider_total_value
+ asking_psf=metric(market.get('data'),['average','average_price_per_sqft','price_per_sqft','average_psf','mean'])
+ sold_psf=metric(sold.get('data'),['average','average_price_per_sqft','price_per_sqft','average_psf','mean'])
+ if gdv_value is None and sold_psf is not None:gdv_value=sold_psf*r.post_development_sqft
+ elif gdv_value is None and asking_psf is not None:gdv_value=asking_psf*r.post_development_sqft
+ professional=r.professional_fees if r.professional_fees>0 else (build_cost*r.professional_fee_pct/100 if build_cost is not None else None)
+ contingency=r.contingency if r.contingency>0 else (build_cost*r.contingency_pct/100 if build_cost is not None else None)
+ target_profit=r.target_profit if r.target_profit>0 else (gdv_value*r.target_profit_pct_gdv/100 if gdv_value is not None else None)
+ known=[build_cost,professional,contingency,target_profit]
+ residual=None
+ if gdv_value is not None and all(x is not None for x in known):residual=gdv_value-build_cost-professional-r.finance-contingency-r.other_costs-r.acquisition_costs-target_profit
+ return {'purchase_price':r.purchase_price,'provider_inputs':{'build_cost_project_type':r.project_type,'development_calculator_project_type':calc_type,'finish_quality':r.finish_quality,'unit_mix':r.unit_mix},'build_cost_evidence':build,'asking_market_psf':market,'sold_market_psf':sold,'provider_development_model':calc,'provider_gdv_model':gdv,'derived_metrics':{'build_cost':build_cost,'asking_psf':asking_psf,'sold_psf':sold_psf,'evidence_backed_gdv':gdv_value,'professional_fees_used':professional,'contingency_used':contingency,'finance_used':r.finance,'other_costs_used':r.other_costs,'acquisition_costs_used':r.acquisition_costs,'target_profit_used':target_profit,'residual_site_value_before_unmodelled_tax_abnormals_and_risk':residual,'purchase_price_vs_residual':r.purchase_price-residual if residual is not None else None,'provider_profit':provider_profit},'assumptions':{'professional_fees':f'Fixed £{r.professional_fees:,.0f}' if r.professional_fees>0 else f'{r.professional_fee_pct}% of evidenced build cost','contingency':f'Fixed £{r.contingency:,.0f}' if r.contingency>0 else f'{r.contingency_pct}% of evidenced build cost','target_profit':f'Fixed £{r.target_profit:,.0f}' if r.target_profit>0 else f'{r.target_profit_pct_gdv}% of evidence-backed GDV'},'rule':'Residual site value = evidence-backed GDV minus build cost, professional fees, finance, contingency, other/acquisition costs and target profit. It remains a development appraisal, not a Red Book valuation. Taxes, CIL/S106, abnormal/site-specific costs, sales costs and finance structure must be added where material.','provider_configured':bool(PROPERTYDATA_API_KEY)}
 
 @app.get('/api/v1/market/provider-status')
 def provider_status():return {'propertydata':bool(PROPERTYDATA_API_KEY),'rightmove_public_scraping':False,'rightmove_authorised_feed_supported':True,'principle':'Use licensed market data; never evade a portal restriction.'}
