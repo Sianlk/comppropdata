@@ -27,10 +27,12 @@ def _load_book() -> dict:
     root = _content_dir()
     book = json.loads((root / 'book.json').read_text(encoding='utf-8'))
     extras: dict[str,list] = {}
-    for name in ('book-expansion.json','book-expansion-final.json'):
+    for name in ('book-expansion.json','book-expansion-final.json','book-fieldwork.json'):
         p = root / name
-        if p.exists():
-            extras.update(json.loads(p.read_text(encoding='utf-8')))
+        if not p.exists():
+            continue
+        for slug, sections in json.loads(p.read_text(encoding='utf-8')).items():
+            extras.setdefault(slug, []).extend(sections)
     for chapter in book.get('chapters',[]):
         chapter['sections'] = [*chapter.get('sections',[]), *extras.get(chapter.get('slug',''),[])]
     return book
