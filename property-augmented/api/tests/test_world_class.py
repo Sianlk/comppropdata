@@ -30,9 +30,17 @@ def test_world_class_paid_intelligence_requires_authentication():
  assert client.post('/api/v1/development/application-pack',json={'postcode':'SW1A 1AA','proposal':'rear extension'}).status_code==401
  assert client.post('/api/v1/market/deal-scan',json={'postcode':'SW1A 1AA'}).status_code==401
  assert client.post('/api/v1/development/site-value',json={'postcode':'SW1A 1AA','purchase_price':1,'pre_development_sqft':1,'post_development_sqft':2}).status_code==401
+ assert client.post('/api/v1/development/postcode-feasibility',json={'postcode':'SW1A 1AA'}).status_code==401
 
 def test_regulatory_matrix_covers_structure_fire_energy_and_environment():
  r=client.get('/api/v1/regulations/matrix');assert r.status_code==200,r.text;body=r.json();codes={x['code'] for x in body['building_regulations']};assert {'A','B','L','M','O'}.issubset(codes);assert len(body['transport_environment'])>=4
 
 def test_os_tiles_fail_closed_without_private_key():
  r=client.get('/api/v1/maps/os/10/511/340.png');assert r.status_code==503
+
+def test_complete_book_is_published_and_generated_from_same_source():
+ meta=client.get('/api/v1/resources/book');assert meta.status_code==200,meta.text;body=meta.json();assert body['chapter_count']==16;assert body['reviewed']=='2026-08-30'
+ pdf=client.get('/api/v1/resources/property-development-augmented-book.pdf');assert pdf.status_code==200,pdf.text;assert pdf.headers['content-type'].startswith('application/pdf');assert len(pdf.content)>10000
+
+def test_free_site_signal_is_a_deliberately_small_screening_asset():
+ pdf=client.get('/api/v1/resources/site-signal.pdf');assert pdf.status_code==200,pdf.text;assert pdf.headers['content-type'].startswith('application/pdf');assert len(pdf.content)>2000
