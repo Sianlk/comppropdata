@@ -1,0 +1,1 @@
+import ProjectsClient from '@/components/ProjectsClient';export default function Projects(){return <main><section className="hero compact"><div className="eyebrow">WORKSPACE</div><h1>Projects</h1><p className="lede">Connect research, risks, variations, decisions and evidence to a project workspace.</p><ProjectsClient/></section></main>}

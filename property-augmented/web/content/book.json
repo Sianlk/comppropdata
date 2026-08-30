@@ -1,0 +1,196 @@
+{
+  "title": "Property Development, Augmented",
+  "subtitle": "The evidence-first operating system for UK property development in the AI era",
+  "edition": "First digital edition",
+  "published": "2026-08-30",
+  "reviewed": "2026-08-30",
+  "description": "A practical field guide to using AI, live property data and disciplined project controls across site selection, planning, feasibility, procurement, delivery and evidence without outsourcing professional judgement.",
+  "chapters": [
+    {
+      "slug": "property-development-is-an-information-problem",
+      "number": 1,
+      "title": "Property development is an information problem before it is a building problem",
+      "standfirst": "The earliest commercial mistakes are usually made while the site still looks simple: an address, an asking price, a planning story and a set of assumptions nobody has yet challenged.",
+      "sections": [
+        {"heading": "The deal arrives as a story", "body": ["Most opportunities first arrive as a compressed narrative. An agent says a property has development potential. A nearby building has been extended. A seller says the title includes a strip of land. A planning portal shows something that looks similar. A builder gives a rough cost. Within minutes, fragments of evidence become a story about what the site could become.", "The danger is not enthusiasm. The danger is that assumptions lose their labels. The developer begins to remember an unverified statement as fact, a comparable sale as a valuation, a nearby permission as precedent and a concept sketch as an achievable scheme. The first job of a serious development system is therefore not prediction. It is classification." ]},
+        {"heading": "Four states of knowledge", "body": ["For every material proposition, use one of four working states: confirmed, assumed, unknown and material if wrong. Confirmed means there is a source that actually supports the proposition. Assumed means the working model currently depends on it but the evidence is incomplete. Unknown means the answer has not yet been established. Material if wrong means the project strategy, value, programme or viability could change if the proposition proves false.", "This simple discipline changes the sequence of due diligence. Instead of commissioning reports because they are customary, you commission the next piece of information because it removes a specific uncertainty. The purpose of due diligence is not to create a large folder. It is to progressively improve the decision." ]},
+        {"heading": "AI should increase information leverage", "body": ["AI is useful because property development is document-heavy, repetitive and fragmented. It can interrogate planning histories, compare policies, normalise quotes, extract issues from technical reports, build evidence matrices and maintain project memory. That is information leverage: more material can be examined, compared and structured before human attention is spent on the highest-value judgement.", "But a language model is not a planning authority, valuer, structural engineer, solicitor or quantity surveyor. The correct architecture is therefore INPUT → STRUCTURE → ANALYSE → VERIFY → DECIDE → LOG. The developer gains speed without pretending uncertainty has disappeared." ]}
+      ]
+    },
+    {
+      "slug": "the-augmented-developer",
+      "number": 2,
+      "title": "The augmented developer",
+      "standfirst": "The competitive advantage is not access to an AI model. It is the ability to turn live evidence into repeatable decisions faster than the market around you.",
+      "sections": [
+        {"heading": "Access is already commoditised", "body": ["Most developers can open the same AI tools. That does not create an operational advantage. The advantage comes from the system around the model: authoritative data connections, project context, structured calculations, versioned evidence, specialist prompts, verification gates and a record of what the team actually decided.", "A useful development platform should know the difference between a sale listing and a completed Land Registry transaction, between an OS map and a legal title boundary, between a planning policy and an officer's interpretation of it, and between a discussion about a variation and explicit approval of it." ]},
+        {"heading": "One address becomes a development file", "body": ["The most useful interface is not a blank chatbot. It is a site. Enter a postcode or address and build outward: geocode, local planning authority, mapping, topography, planning constraints, local plan, national policy, planning history, appeal evidence, sold comparables, current market evidence, build-cost assumptions, technical triggers and project controls.", "Once that information is assembled, specialist AI has context. A Site Analyst can challenge the opportunity. A Planning Evidence Analyst can distinguish policy support from planning risk. A Commercial Analyst can challenge the appraisal. A Document Auditor can compare uploaded evidence against the project record. The intelligence becomes cumulative rather than disposable." ]},
+        {"heading": "The human remains accountable", "body": ["Augmentation works only when authority remains clear. AI can propose a planning argument; the applicant and planning professional decide whether to adopt it. AI can identify a possible structural issue; the engineer determines the design. AI can calculate a residual land value from supplied assumptions; the developer decides whether the risk-adjusted price makes commercial sense.", "The practical rule is simple: AI can prepare, compare, interrogate, draft and challenge. It does not silently become the professional decision-maker." ]}
+      ]
+    },
+    {
+      "slug": "never-outsource-judgement",
+      "number": 3,
+      "title": "Never outsource judgement",
+      "standfirst": "A fast wrong answer is not a productivity gain. The operating system has to make uncertainty more visible, not less.",
+      "sections": [
+        {"heading": "Confidence is not evidence", "body": ["Generative systems are designed to produce coherent language. Coherence can be useful, but it can also conceal a weak evidential foundation. A planning statement that sounds professional may still cite an outdated policy. A cost summary may omit abnormal works. A title summary may confuse an indicative index polygon with the legal boundary.", "The safest output is not always a conclusion. Sometimes the correct output is NOT ESTABLISHED, followed by the evidence required to establish it." ]},
+        {"heading": "Separate fact, inference and opinion", "body": ["Every material AI finding should carry a classification. Confirmed fact means the supplied evidence supports it. Assumption means the model has used it but it has not been verified. Inference means the model has drawn a conclusion from evidence without direct confirmation. Professional opinion means a competent professional has provided a view. Decision means an accountable person has adopted a course of action.", "This classification is especially valuable when projects become contentious. It prevents a draft AI analysis from drifting into the formal record as if it were an approved decision." ]},
+        {"heading": "Design the verification action", "body": ["A useful AI output should not merely say that something is uncertain. It should identify the cheapest reliable action that removes the uncertainty: obtain the title register, commission a measured survey, retrieve the current local validation list, ask the highway authority a focused question, get a drainage strategy, request a structural opening-up survey or obtain a current contractor quotation.", "The system becomes valuable when it improves the next action, not when it produces the longest answer." ]}
+      ]
+    },
+    {
+      "slug": "postcode-first-site-intelligence",
+      "number": 4,
+      "title": "Postcode-first site intelligence",
+      "standfirst": "A postcode is not enough to make a development decision, but it is enough to start a disciplined evidence-gathering sequence automatically.",
+      "sections": [
+        {"heading": "Resolve the administrative geography", "body": ["The first automated task is to identify where the site actually sits: coordinates, local planning authority, administrative district, UPRN where available and the relevant planning-data geography. This determines which local plan, validation list, highway authority and local policy documents should be retrieved.", "Current national planning policy should be retrieved separately from the local development plan. In England, the National Planning Policy Framework was replaced by a new framework on 17 August 2026. A live system should therefore retain the publication date and retrieval time rather than relying on a model's memory." ]},
+        {"heading": "Build the map room", "body": ["Mapping layers answer different questions. Ordnance Survey mapping provides geographic and topographic context. Google satellite and Street View can help understand built form and access. Environment Agency LiDAR can indicate terrain and surface form. HM Land Registry INSPIRE can help screen registered freehold extents.", "None of those layers should be silently promoted into a legal or measured conclusion. LiDAR is not a measured topographical survey. Street View may be historic. An INSPIRE gap does not prove land is unregistered. The map room is an evidence interface, not a substitute for the appropriate survey or title investigation." ]},
+        {"heading": "Retrieve the decision context", "body": ["The postcode should then trigger retrieval of planning history, nearby decisions, relevant appeals, sold-price evidence, asking-market evidence, flood and environmental signals, local policy and technical triggers. The result is a site dossier that tells the user both what is known and what still needs to be commissioned.", "A good site dossier does not end with a score. It ends with a prioritised investigation plan." ]}
+      ]
+    },
+    {
+      "slug": "planning-intelligence-after-nppf-2026",
+      "number": 5,
+      "title": "Planning intelligence after the 2026 NPPF",
+      "standfirst": "Planning strategy has to be version-aware. The development plan, national decision-making policies, guidance, evidence and precedent all have different roles.",
+      "sections": [
+        {"heading": "Start with the policy stack", "body": ["A planning analysis should identify the current adopted development plan, relevant local policies, any neighbourhood plan, material emerging policy, supplementary planning documents or design codes, the local validation list, CIL and planning-obligation material, and the current national policy baseline.", "The 17 August 2026 NPPF introduced a new national framework and national decision-making policies. That makes version control especially important: an older officer report or appeal may have been decided under a materially different policy context." ]},
+        {"heading": "Policy is not the same as outcome", "body": ["A policy can support the principle of development while the particular design fails on amenity, heritage, access, drainage or another site-specific matter. Equally, an older refusal does not necessarily mean the concept is permanently unacceptable if the evidence, design or policy context changes.", "The useful question is therefore not 'will this be approved?' It is 'which material propositions must be established, what evidence supports them, what evidence conflicts with them and how have decision-makers treated comparable issues in this location?'" ]},
+        {"heading": "Use precedent carefully", "body": ["Nearby permissions and appeals are valuable evidence, but only after the system explains why they are comparable. Similarity should consider use, scale, massing, access, heritage context, neighbour relationships, parking, policy date, technical evidence and the actual reason for the decision.", "Historic positive outcomes can describe a retrieved sample. They should never be presented as a mathematical probability of permission. Planning remains an evidence-led judgement made on the application before the authority." ]}
+      ]
+    },
+    {
+      "slug": "planning-applications-that-are-easier-to-approve",
+      "number": 6,
+      "title": "Make the application easier to understand and harder to refuse",
+      "standfirst": "Strong applications reduce the number of material questions left unanswered at the point the decision is made.",
+      "sections": [
+        {"heading": "Design out predictable refusal themes", "body": ["The planning history and local appeal record can reveal recurring issues: excessive massing, privacy, poor access, insufficient parking evidence, heritage harm, inadequate drainage, noise conflict, lack of ecological information or an unclear lawful-use position. Those themes should shape the design brief before the drawings are fixed.", "This is where AI is particularly useful. It can compare refusal reasons and appeal decisions across a local sample, then translate them into questions for the architect and consultants." ]},
+        {"heading": "Build an evidence matrix before the statement", "body": ["The planning statement should be the narrative expression of an evidence structure, not the place where the evidence structure is invented. For every material issue record the proposition, policy, evidence, contrary evidence, source, status and required action.", "When the matrix is complete, drafting becomes faster and safer. Unsupported statements can be marked [VERIFY]. Missing professional work can be labelled TO COMMISSION rather than dressed up as a conclusion." ]},
+        {"heading": "Validation is part of strategy", "body": ["A technically persuasive application can still lose weeks if it is not valid. The system should retrieve the current local validation list and generate a tailored submission checklist: drawings, ownership certificates, design and access material, ecology/BNG, flood or drainage work, transport, noise, heritage, contamination and any other locally triggered information.", "The objective is not to submit the largest possible pack. It is to submit the proportionate evidence required to answer the material issues." ]}
+      ]
+    },
+    {
+      "slug": "development-appraisal-and-residual-land-value",
+      "number": 7,
+      "title": "Development appraisal and residual land value",
+      "standfirst": "A residual is only as credible as the evidence beneath the GDV, costs, policy obligations, finance and risk allowances.",
+      "sections": [
+        {"heading": "Keep asking evidence and sold evidence separate", "body": ["Current listings help describe the market. Completed Land Registry transactions provide evidence of achieved prices. They are different datasets and should remain visibly separate. Where floor-area evidence exists, sold £/sq ft can help interrogate a GDV assumption, but true comparability still depends on property type, condition, tenure, specification, location and date.", "The calculator should therefore expose its sources and assumptions rather than return a single unexplained value." ]},
+        {"heading": "Model the full development cost", "body": ["Total development cost is more than construction. It may include acquisition costs, professional fees, surveys, statutory fees, CIL and planning obligations, abnormal works, finance, contingency, utilities, sales costs, tax and the cost of time. If a local policy creates an obligation that has not yet been quantified, the appraisal should show a policy-cost placeholder rather than ignore it.", "A policy-aware appraisal is not one that guesses every obligation. It is one that knows which obligations may apply and refuses to hide the missing numbers." ]},
+        {"heading": "Residual value is a decision tool", "body": ["A simple residual starts with evidence-backed GDV and deducts build cost, professional fees, finance, contingency, other costs and required developer profit. The remainder is the residual amount available for land before any remaining unmodelled costs and risk.", "Sensitivity is essential. A 49-case matrix of GDV and build-cost movements can show how quickly the residual collapses. That is more useful than a base case that looks precise because it uses many decimal places." ]}
+      ]
+    },
+    {
+      "slug": "title-maps-and-unregistered-land",
+      "number": 8,
+      "title": "Title, maps and the myth of instantly finding unregistered land",
+      "standfirst": "Mapping can reveal questions. Only the correct Land Registry process can answer the registration question conclusively.",
+      "sections": [
+        {"heading": "Different maps answer different questions", "body": ["An OS map describes geographic features. A title plan illustrates the general extent of registered title. HM Land Registry INSPIRE data provides indicative registered freehold polygons for spatial analysis. A planning red line shows the application site. These layers may overlap, but they are not interchangeable.", "A development platform should place them side by side without suggesting that one proves the content of another." ]},
+        {"heading": "Do not infer unregistered status from a blank polygon", "body": ["An apparent gap in an INSPIRE layer can be interesting, but it can arise for several reasons. The data is not a complete picture of every registered interest and it does not establish the legal boundary. Treat the gap as an investigation trigger.", "Where registration status matters, use HM Land Registry's Search of the Index Map process and obtain the relevant register/title material. If title interpretation is commercially material, involve the conveyancer or property solicitor." ]},
+        {"heading": "Title risk belongs in the appraisal", "body": ["Access rights, restrictive covenants, ransom strips, easements, leases and boundary uncertainty can change both planning strategy and value. Title investigation is therefore not a legal task that happens after feasibility. It is a core development input." ]}
+      ]
+    },
+    {
+      "slug": "briefing-the-professional-team",
+      "number": 9,
+      "title": "Brief the professional team with better questions",
+      "standfirst": "The value of a consultant report depends heavily on the question the consultant has been asked to answer.",
+      "sections": [
+        {"heading": "Commission evidence, not generic paperwork", "body": ["If access geometry is the uncertainty, brief the transport consultant around visibility, swept path, servicing and the relevant highway standard. If noise is the issue, identify the source, proposed receptor, operating hours and planning question. If drainage is material, define the development scenario and the decision the drainage evidence must support.", "AI can transform the site dossier into a first consultant brief, but the consultant should determine the professional methodology and scope." ]},
+        {"heading": "Control interfaces", "body": ["Many development failures occur between disciplines rather than within them. A structural solution changes the architecture. An acoustic requirement changes the facade. A fire strategy changes access and layout. Drainage changes levels. Ecology changes lighting and landscaping. The project system should therefore track interfaces and dependencies, not just individual reports.", "A technical coordination matrix makes those interfaces visible before they become redesign." ]},
+        {"heading": "Cost the unknowns properly", "body": ["Published statutory fees can often be sourced. Bespoke professional fees usually require current quotations. The correct output where a quote does not exist is PRICE NOT ESTABLISHED, together with the exact scope that needs pricing.", "That is more commercially useful than inserting a generic consultant allowance and forgetting that it was a guess." ]}
+      ]
+    },
+    {
+      "slug": "procurement-and-quote-intelligence",
+      "number": 10,
+      "title": "Procurement and quote intelligence",
+      "standfirst": "The lowest headline quote is often the least meaningful number in the tender comparison.",
+      "sections": [
+        {"heading": "Normalise before comparing", "body": ["Contractor quotations rarely use the same structure. One includes access, waste and making good. Another excludes them. One carries a provisional sum. Another silently assumes client supply. A useful comparison decomposes the quotes into common work packages while preserving the bidder's actual wording.", "AI can perform much of that normalisation quickly, but it must never convert an ambiguous exclusion into an inclusion." ]},
+        {"heading": "Clarification is the product", "body": ["The best output of a quote-comparison tool is often not a ranking. It is the clarification schedule: exactly what must be confirmed before appointment. This protects the commercial decision from false comparability.", "Where scope, quantity or specification is uncertain, the correct status is clarification required." ]},
+        {"heading": "Preserve the audit trail", "body": ["The chosen contractor, reasons for selection, clarifications, scope documents and approvals should become part of project memory. When a variation later arises, the team can return to the actual procurement evidence instead of reconstructing what everybody remembers." ]}
+      ]
+    },
+    {
+      "slug": "variations-risk-and-project-memory",
+      "number": 11,
+      "title": "Variations, risk and project memory",
+      "standfirst": "A project loses margin and control when the record of why something changed disappears faster than the change itself.",
+      "sections": [
+        {"heading": "Discussion is not approval", "body": ["A WhatsApp exchange, meeting conversation or email thread can show that a change was discussed. It does not automatically prove scope, price, programme effect or authority. A controlled variation record should state description, reason, source/drawing, value, programme effect, approval state and approval evidence.", "If approval cannot be found, record APPROVAL NOT EVIDENCED. The system should enforce that rule at the data layer, not merely through a friendly warning in the interface." ]},
+        {"heading": "Risk belongs to an owner", "body": ["A risk register is useful only when it changes behaviour. Record cause, event, consequence, probability, impact, mitigation, owner and status. Then connect the material risks back to evidence and decisions.", "AI can propose risks from the project dossier and documents, but a human project lead must decide which risks enter the formal register." ]},
+        {"heading": "Memory compounds", "body": ["Once decisions, risks, variations, documents and evidence are structured, weekly reporting becomes an output of maintained data. At project close, the same information becomes the evidence base for lessons learned and future estimating.", "Project memory is therefore not administration. It is an asset that improves the next project." ]}
+      ]
+    },
+    {
+      "slug": "document-intelligence-and-evidence-room",
+      "number": 12,
+      "title": "Document intelligence and the Evidence Room",
+      "standfirst": "The useful unit of AI output is not the answer. It is the claim, its source and its review state.",
+      "sections": [
+        {"heading": "Treat documents as untrusted evidence", "body": ["Uploaded documents can contain mistakes, superseded information and even text that looks like instructions to an AI system. A secure document workflow should validate the file, fingerprint it, extract content without executing macros, record ownership and retention, and treat the content as evidence rather than instructions.", "This matters because property files routinely contain commercially sensitive, personal and legally significant information." ]},
+        {"heading": "Break analysis into claims", "body": ["Instead of storing a long AI answer, create structured claims. Each claim should carry classification, confidence, materiality, source references, verification action and human-review state. A reviewer can verify, contest or supersede a claim without approving the entire analysis.", "That turns AI output into an auditable evidence graph." ]},
+        {"heading": "Fingerprint important outputs", "body": ["Cryptographic hashes are useful because they make it possible to show that a particular input or decision pack has not changed silently. A project decision pack can therefore contain the evidence state, claims, controls and a fingerprint for the assembled output.", "The objective is not blockchain theatre. It is simple, reproducible provenance." ]}
+      ]
+    },
+    {
+      "slug": "deep-research-for-property-development",
+      "number": 13,
+      "title": "Deep research for property development",
+      "standfirst": "Search is valuable when the system can distinguish discovery from evidence and retain the sources consulted.",
+      "sections": [
+        {"heading": "Research needs a hierarchy", "body": ["For current policy, start with authoritative sources: GOV.UK, the local planning authority, legislation, Planning Data, the Planning Inspectorate and the relevant statutory or professional source. Commercial databases can enrich the picture, but they should not silently outrank the primary record.", "A research agent should return the source URL, retrieval time, document status and caveat alongside its synthesis." ]},
+        {"heading": "Search the local authority automatically", "body": ["A postcode-first system should identify the responsible local planning authority even when the user does not know the council domain. It can then locate the current local plan, policies map, validation list, SPDs, CIL material, design guidance and other authority-specific documents.", "Where the local authority has not published a required item in an accessible form, the system should say that the item was not established rather than borrowing an answer from a neighbouring council." ]},
+        {"heading": "Research should challenge the scheme", "body": ["Deep research is not just about finding support. It should actively search for adverse decisions, contrary policy, constraints and appeal reasoning. The best development research asks what would cause the scheme to fail and what evidence would change that conclusion." ]}
+      ]
+    },
+    {
+      "slug": "deal-sourcing-without-scraping-the-web",
+      "number": 14,
+      "title": "Deal sourcing without building a fragile scraping business",
+      "standfirst": "The goal is market coverage and development triage, not a cat-and-mouse game with property portals.",
+      "sections": [
+        {"heading": "Use licensed market feeds", "body": ["A commercial sourcing engine needs lawful, stable data rights. Where a portal prohibits scraping or automation, use an authorised API, licensed aggregator or commercial feed instead. This is operationally stronger and protects the product from disappearing when a website changes its markup or blocks a crawler.", "The system can then scan reduced, unmodernised, slow-moving and other relevant stock and feed candidates into the same site-intelligence workflow." ]},
+        {"heading": "A cheap listing is not necessarily a deal", "body": ["Asking price should be compared with completed transactions, floor area, tenure, condition, planning context and likely development costs. A listing below a local median can be an investigation signal, but the local median may itself be a poor comparable.", "The output should therefore be investigation priority, not BUY." ]},
+        {"heading": "Close the loop", "body": ["The real advantage appears when sourcing, feasibility and planning are connected. A candidate enters the pipeline, the system assembles its site dossier, tests planning directions, models residual value and produces the next verification actions. The user spends time on the opportunities that survive the first evidence gates." ]}
+      ]
+    },
+    {
+      "slug": "the-one-person-development-company",
+      "number": 15,
+      "title": "The one-person development company",
+      "standfirst": "AI does not remove the professional team. It can dramatically increase the amount of coordination a small developer can perform before and between professional appointments.",
+      "sections": [
+        {"heading": "Operate like a larger information team", "body": ["A small developer can use structured AI to perform work that previously disappeared between roles: document indexing, policy retrieval, meeting summaries, evidence matrices, quote normalisation, risk registers, consultant briefs, weekly reports and decision logs.", "This does not mean one person becomes an architect, planner, engineer, QS and lawyer. It means one person can arrive at those professionals with better organised evidence and better questions." ]},
+        {"heading": "Spend professional money where judgement matters", "body": ["If AI can organise the planning history in minutes, the planning consultant can spend more of the fee interpreting the difficult policy issue. If a system can assemble the drawings and contradictions in a structural brief, the engineer can spend more time on the structural question. Information preparation and professional judgement should not be confused." ]},
+        {"heading": "Keep the system boring where it must be boring", "body": ["The strongest operating systems are disciplined rather than flashy. They enforce file ownership, status labels, approvals, data rights, backups, access controls and audit events. These details create the trust required for the clever AI layer to be useful." ]}
+      ]
+    },
+    {
+      "slug": "a-90-day-implementation-plan",
+      "number": 16,
+      "title": "A 90-day implementation plan",
+      "standfirst": "Do not automate the whole company at once. Build one evidence-first workflow, prove it, then connect the next one.",
+      "sections": [
+        {"heading": "Days 1–30: establish SITE", "body": ["Create a consistent site-intelligence template. Connect postcode/address lookup, planning history, current policy retrieval, mapping, sold evidence and the due-diligence matrix. Define which sources are authoritative and how freshness is shown. Test it on sites where the outcome is already known so weaknesses are visible.", "Choose one developer decision to improve: whether to investigate further, whether to make an offer subject to information, or which professional question to commission next." ]},
+        {"heading": "Days 31–60: establish BUILD", "body": ["Add structured quote comparison, risk, variation and decision controls. Import current project documents and establish the rule that discussion is not approval. Generate weekly reporting from maintained registers rather than starting from a blank page.", "Measure time saved, missing information found and preventable clarification identified. Those are more useful implementation metrics than the number of AI prompts sent." ]},
+        {"heading": "Days 61–90: establish PROVE", "body": ["Introduce the Evidence Room, human claim review, document fingerprints, audit history and decision packs. Decide which AI outputs may become formal project records and who has authority to adopt them.", "At the end of 90 days, the objective is not an impressive demo. It is a small number of repeatable workflows that produce better evidence and better-documented decisions every week." ]},
+        {"heading": "The operating principle", "body": ["Property development will always involve uncertainty. The advantage is not pretending uncertainty can be eliminated. It is seeing it sooner, pricing it more intelligently, commissioning the right evidence and preserving the reasoning behind the eventual decision.", "That is what an augmented developer does." ]}
+      ]
+    }
+  ],
+  "sources": [
+    {"name": "National Planning Policy Framework — 17 August 2026", "url": "https://www.gov.uk/guidance/national-planning-policy-framework"},
+    {"name": "Planning Practice Guidance", "url": "https://www.gov.uk/government/collections/planning-practice-guidance"},
+    {"name": "Planning Data", "url": "https://www.planning.data.gov.uk/"},
+    {"name": "HM Land Registry — Search of the Index Map", "url": "https://www.gov.uk/get-information-about-property-and-land/search-the-index-map"},
+    {"name": "HM Land Registry Price Paid Data", "url": "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads"},
+    {"name": "Environment Agency Flood Monitoring API", "url": "https://environment.data.gov.uk/flood-monitoring/doc/reference"},
+    {"name": "Approved Documents", "url": "https://www.gov.uk/government/collections/approved-documents"}
+  ]
+}

@@ -1,0 +1,106 @@
+[
+  {
+    "slug":"planning-application-fees-england-2026-calculator",
+    "title":"Planning fees changed on 1 April 2026. Your feasibility model should treat them as a dated input.",
+    "description":"A practical guide to the 2026 England planning-fee schedule, why fee assumptions need version control and how the built-in calculator should be used.",
+    "published":"2026-08-30","reviewed":"2026-08-30","tool":"calculators",
+    "sections":[
+      {"heading":"Planning fees are now part of the feasibility evidence stack","body":["The statutory planning-fee schedule in England was indexed from 1 April 2026. That means a feasibility model carrying a historic application-fee allowance can be wrong before the design team has started. The correct approach is to store the fee schedule date alongside the number rather than treating 'planning fee' as a timeless line item.","For example, the 1 April 2026 schedule lists £548 for a householder application relating to a single dwellinghouse, £610 per dwelling for full residential applications creating fewer than ten dwellings and different formulas as scale increases. Those figures should always be checked against the current statutory schedule at the point of submission." ]},
+      {"heading":"A calculator should be narrow rather than falsely comprehensive","body":["A useful statutory-fee calculator can cover common application categories and show the source date. It should not pretend that the statutory application fee is the entire submission cost. Portal charges, local discretionary services, pre-application advice, specialist reports, surveys and any future local/default fee changes are separate matters.","The correct software behaviour is to calculate the categories it can establish and expose everything else as a separate fee or evidence gap." ]},
+      {"heading":"Fee research belongs with the validation list","body":["The application type, validation requirements and statutory fee are connected. A change-of-use proposal, prior approval route, householder application and full residential scheme can have very different information and fee requirements. The platform should therefore build the fee plan after resolving the proposal and authority, not before.","That is why Development Intelligence HQ keeps the live local validation research and the deterministic statutory calculator separate but connected." ]},
+      {"heading":"The practical rule","body":["Use the calculator for a dated statutory estimate. Use the live fee-plan research for local pre-application and published service charges. Commission consultant quotes where no current public price exists. Never let an old spreadsheet number quietly become a current fact." ]}
+    ],
+    "sources":[{"name":"MHCLG — Planning fees annual indexation from 1 April 2026","url":"https://assets.publishing.service.gov.uk/media/69a073bb07d7bff3604d6df6/Planning_fees_-_annual_indexation_from_1_April_2026.pdf"},{"name":"GOV.UK — Fees for planning applications","url":"https://www.gov.uk/government/consultations/fees-for-planning-applications"}]
+  },
+  {
+    "slug":"biodiversity-net-gain-august-2026-development-feasibility",
+    "title":"BNG changed again in August 2026. Small-site feasibility needs the current rule, not last year's checklist.",
+    "description":"How current biodiversity-net-gain guidance changes site screening, evidence requirements and the way developers should treat ecological cost risk.",
+    "published":"2026-08-30","reviewed":"2026-08-30","tool":"development-intelligence",
+    "sections":[
+      {"heading":"BNG is a live policy and regulatory input","body":["Biodiversity net gain is not a static checklist item. Government guidance has continued to change through 2026, including updates in July and August. Current guidance states that, from 6 August 2026, BNG does not apply to planning applications for developments of 0.2 hectares or below. That is a material site-screening fact and exactly the kind of change that should not rely on a language model's memory.","For sites outside an exemption, the statutory framework generally requires the biodiversity gain objective to be met and the planning process includes specific information and a Biodiversity Gain Plan before commencement." ]},
+      {"heading":"Do not turn 'BNG applies' into a made-up cost","body":["The planning research may establish that BNG is relevant, but the commercial cost still depends on the site's habitat baseline, design, metric, on-site opportunities, any off-site units and professional work. A policy-aware appraisal should therefore flag the potential cost and evidence requirement without inserting a fictional allowance.","The correct state is often: BNG applicability to verify; baseline and metric TO COMMISSION; cost NOT ESTABLISHED." ]},
+      {"heading":"Bring ecology forward in the design sequence","body":["Where BNG applies, ecology is not merely a report added at the end. The guidance encourages early consideration because site layout, habitat retention and the biodiversity gain hierarchy can affect developable area and design. That means ecological evidence can change both planning prospects and residual land value.","A postcode-first platform cannot measure habitat. It can identify the policy trigger and make the missing survey visible before the financial model hardens around an assumed net developable area." ]},
+      {"heading":"Version the conclusion","body":["Every BNG conclusion in the project record should carry the date and source used. If the rules change, the project can be re-run against the new baseline rather than trying to remember which assumption came from which version of guidance." ]}
+    ],
+    "sources":[{"name":"GOV.UK — Biodiversity net gain planning guidance","url":"https://www.gov.uk/guidance/biodiversity-net-gain"},{"name":"GOV.UK — BNG guidance collection","url":"https://www.gov.uk/government/collections/biodiversity-net-gain-guidance-for-developers-land-managers-and-authorities"},{"name":"GOV.UK — What local planning authorities should do","url":"https://www.gov.uk/guidance/biodiversity-net-gain-what-local-planning-authorities-should-do"}]
+  },
+  {
+    "slug":"local-plan-current-emerging-historical-property-development",
+    "title":"Current, emerging or historical? Local-plan status can change the whole planning conversation.",
+    "description":"Why local-plan discovery needs status, boundary and date information before AI can sensibly analyse a development site.",
+    "published":"2026-08-30","reviewed":"2026-08-30","tool":"policy-library",
+    "sections":[
+      {"heading":"A local plan is not just a PDF name","body":["Planning Data now exposes structured local-plan records with current, emerging and historical status. That is useful because a search result can surface an old plan that still looks authoritative to a user or model. The platform must identify the status before using the document in a site strategy.","The structured dataset is a discovery layer, not a substitute for checking the authority's own adopted development plan and current documents." ]},
+      {"heading":"Resolve the boundary as well as the authority","body":["A postcode can fall near administrative or plan boundaries. The platform should resolve the Local Planning Authority and, where available, the local-plan boundary before deciding which policy pack to retrieve. That is especially important where unitary changes, minerals/waste authorities or neighbourhood plans complicate the policy stack.","The output should show what was retrieved, the plan status and the retrieval date." ]},
+      {"heading":"Emerging policy is not adopted policy","body":["An emerging plan can be material without carrying the same status as an adopted policy. The AI analysis should therefore label the plan stage rather than quoting emerging policy as if it were already the operative development plan.","This distinction becomes more important when older local decisions are compared against a new national policy baseline or an emerging local strategy." ]},
+      {"heading":"Make stale policy visible","body":["A world-class planning tool should make policy age obvious. The user needs to know when a document was adopted, whether it is still current and whether newer guidance or an emerging plan may affect the issue. 'Current as retrieved' is a much more useful product state than an evergreen paragraph written once and never revisited." ]}
+    ],
+    "sources":[{"name":"Planning Data — Local plan dataset","url":"https://www.planning.data.gov.uk/dataset/local-plan"},{"name":"Planning Data — Local plan boundary dataset","url":"https://www.planning.data.gov.uk/dataset/local-plan-boundary"},{"name":"Planning Data — Local Planning Authority dataset","url":"https://www.planning.data.gov.uk/dataset/local-planning-authority"}]
+  },
+  {
+    "slug":"cil-section-106-policy-cost-gap-development-appraisal",
+    "title":"CIL and Section 106 are not one 'planning cost' line. Treat the evidence gap properly.",
+    "description":"How to connect local policy, CIL arithmetic and planning-obligation uncertainty to a development appraisal without manufacturing liabilities.",
+    "published":"2026-08-30","reviewed":"2026-08-30","tool":"calculators",
+    "sections":[
+      {"heading":"The appraisal wants a number before the evidence exists","body":["Residual models work best when every cost is numeric. Planning obligations do not always cooperate. CIL depends on the applicable charging schedule, chargeable floorspace, indexation, existing lawful floorspace and any relief or exemption. Section 106 obligations depend on the proposal, policy and negotiation. Those are different mechanisms and should not be collapsed into one generic percentage.","If the policy research establishes that an obligation may apply but the amount is not yet evidenced, the model should show a visible gap." ]},
+      {"heading":"A CIL calculator still needs a verified local rate","body":["The platform can perform deterministic CIL arithmetic once the user has the verified local rate, chargeable area, index multiplier and floorspace credit. It should not guess the local charging schedule from a national average because there is no meaningful national rate to apply.","The result is an estimate for feasibility, not a liability notice." ]},
+      {"heading":"Section 106 requires a different workflow","body":["Planning obligations may address matters such as affordable housing, highways or other mitigation depending on policy and the proposal. A software system can identify the policy trigger, comparable agreements and outstanding questions. It cannot manufacture the final negotiated obligation.","Where the amount could materially change residual value, the next action is targeted professional/authority evidence rather than a more elaborate spreadsheet assumption." ]},
+      {"heading":"Commercial discipline is mostly about visible unknowns","body":["A deal is not safer because every row in the appraisal contains a number. It is safer when the user can distinguish established cost, provisional allowance and genuinely unknown exposure." ]}
+    ],
+    "sources":[{"name":"GOV.UK — Community Infrastructure Levy guidance","url":"https://www.gov.uk/guidance/community-infrastructure-levy"},{"name":"GOV.UK — Planning obligations guidance","url":"https://www.gov.uk/guidance/planning-obligations"}]
+  },
+  {
+    "slug":"maximum-land-bid-residual-value-development-deal",
+    "title":"The maximum land bid is not the residual. It is the residual after you decide what risk still deserves a haircut.",
+    "description":"A practical framework for moving from GDV and development cost to a maximum site bid without confusing deterministic arithmetic with investment judgement.",
+    "published":"2026-08-30","reviewed":"2026-08-30","tool":"calculators",
+    "sections":[
+      {"heading":"Start with the transparent residual","body":["The mechanical starting point is simple: evidence-backed GDV less construction, professional fees, finance, contingency, planning obligations, sales costs, other costs and required developer profit. What remains is the amount theoretically available for land before any costs or risks that have not been modelled.","That last phrase matters. A precise-looking residual is still only the output of its assumptions." ]},
+      {"heading":"Do not bid every pound of theoretical residual","body":["Title uncertainty, planning risk, abnormal works, programme slippage, tax, utilities and unpriced policy obligations can all consume headroom. A maximum-land-bid calculator should therefore show the theoretical residual and explicitly warn that the user may need a risk haircut.","The system should never automatically convert a residual into a recommendation to offer that amount." ]},
+      {"heading":"Use sensitivity before negotiation","body":["Run the scenario matrix before deciding whether the residual is resilient. If a modest fall in GDV or rise in build cost removes the developer return, the negotiation position should reflect that fragility.","Sensitivity is a decision aid because it shows the shape of the risk, not because it predicts the market." ]},
+      {"heading":"The postcode engine changes the arithmetic inputs","body":["The real advantage appears when the same site dossier that identified planning and title questions also feeds the appraisal. The user can see which unresolved evidence could change the maximum bid and commission that evidence before the commercial decision hardens." ]}
+    ],
+    "sources":[{"name":"HM Land Registry Price Paid Data","url":"https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads"},{"name":"GOV.UK — Planning obligations guidance","url":"https://www.gov.uk/guidance/planning-obligations"}]
+  },
+  {
+    "slug":"pre-application-planning-advice-when-to-use-it",
+    "title":"Pre-application advice is most valuable after you know the question you need the council to answer.",
+    "description":"How to use postcode-first research to make pre-application planning advice more focused, proportionate and commercially useful.",
+    "published":"2026-08-30","reviewed":"2026-08-30","tool":"application-pack",
+    "sections":[
+      {"heading":"A vague pre-app can produce a vague answer","body":["Submitting a broad concept without identifying the real policy or technical uncertainty can generate generic feedback. Before paying for pre-application advice, the developer should already know the current policy stack, obvious constraints, relevant planning history and the decisions that the advice needs to unlock.","The site dossier therefore comes before the pre-app brief." ]},
+      {"heading":"Ask decision questions","body":["Useful questions are specific: is the principle of the proposed use likely to conflict with a named policy; what evidence would the authority expect on access; which scale or massing issue is material; what local validation items are likely to be triggered? A consultant brief can structure those questions without pretending the authority has already answered them.","The response should then be stored as dated project evidence, not remembered informally." ]},
+      {"heading":"Pre-app advice is evidence, not permission","body":["Pre-application feedback can influence strategy but it is not a planning decision. The later application may contain different evidence, design or consultation responses. The project record should therefore classify the advice correctly and preserve any caveats supplied by the authority." ]},
+      {"heading":"Connect advice back to design and appraisal","body":["If the authority signals that a design change or technical report is needed, that should update the concept, consultant schedule and cost model. The value of pre-app advice is lost if it remains as a PDF detached from the project operating system." ]}
+    ],
+    "sources":[{"name":"GOV.UK — Before submitting an application","url":"https://www.gov.uk/guidance/before-submitting-an-application"},{"name":"GOV.UK — Making an application","url":"https://www.gov.uk/guidance/making-an-application"}]
+  },
+  {
+    "slug":"small-site-development-feasibility-postcode-first",
+    "title":"Small sites need fast evidence more than they need a simplified planning story.",
+    "description":"Why extensions, conversions, infill, upward development and small residential schemes benefit from the same evidence discipline as larger projects.",
+    "published":"2026-08-30","reviewed":"2026-08-30","tool":"development-intelligence",
+    "sections":[
+      {"heading":"Small does not mean simple","body":["A one- or two-unit opportunity can still depend on access, neighbour amenity, heritage, lawful use, parking, drainage, title and existing-building constraints. Because the gross profit is smaller, professional fees and design iterations can consume a larger share of the upside.","That makes early evidence triage especially valuable." ]},
+      {"heading":"Start with the cheapest decisive checks","body":["Postcode-led research can identify the authority, planning history, local policy, mapping context and obvious environmental signals before a design team is fully commissioned. The next step is then chosen by materiality: title, measured survey, structural assessment, transport, acoustics, drainage, ecology or another site-specific issue.","The platform should not commission everything by default. It should identify which unknown can change the decision." ]},
+      {"heading":"Use planning precedent carefully on infill and conversion sites","body":["A neighbouring permission can be relevant without being determinative. Differences in plot width, separation, access, heritage context, building form or policy date can make a superficially similar scheme materially different.","The planning prospects engine should explain those differences rather than simply count approvals." ]},
+      {"heading":"Keep the appraisal proportionate","body":["On smaller sites, statutory fees, consultant reports and finance friction can materially alter margin. Use deterministic calculators for known inputs and keep unknown planning/technical costs visible until they are established." ]}
+    ],
+    "sources":[{"name":"GOV.UK — National Planning Policy Framework","url":"https://www.gov.uk/guidance/national-planning-policy-framework"},{"name":"Planning Data","url":"https://www.planning.data.gov.uk/"}]
+  },
+  {
+    "slug":"ai-property-development-operating-system-not-chatbot",
+    "title":"The valuable AI product is the operating system around the model, not the model itself.",
+    "description":"Why property and construction businesses need source control, project memory, calculators, specialist agents and auditability around AI rather than a prettier chat box.",
+    "published":"2026-08-30","reviewed":"2026-08-30","tool":"products-consultancy",
+    "sections":[
+      {"heading":"Models are becoming interchangeable","body":["The commercial advantage does not come from putting one named AI model behind a branded chat window. Models change. The durable product is the system that decides what evidence is retrieved, how it is classified, which calculations are deterministic, what the AI may infer and where human authority is required.","That architecture survives provider changes because the project record is not trapped inside one conversation." ]},
+      {"heading":"Project memory is the moat","body":["A useful operating system retains the site dossier, policy evidence, calculations, documents, decisions, risks, variations and consultant outputs. The next AI run starts from maintained project context rather than asking the user to explain the scheme again.","This is where AI becomes cumulative rather than disposable." ]},
+      {"heading":"Governance belongs inside the workflow","body":["The platform should hash documents, record sources, preserve review state, isolate untrusted material and retain an audit trail of changes. Those controls are not enterprise decoration. They are what allow AI-generated working material to coexist safely with professional and statutory evidence." ]},
+      {"heading":"The transformation offer is therefore operational","body":["A business implementation should map recurring information loss, select high-value workflows, connect authoritative data, define human-review gates and measure whether the new system saves time or reduces error. Training people to write clever prompts is only one small part of that job." ]}
+    ],
+    "sources":[{"name":"UK Government — AI Adoption Research","url":"https://www.gov.uk/government/publications/ai-adoption-research/ai-adoption-research"},{"name":"UK Government — UK Business Data Survey 2026","url":"https://www.gov.uk/government/statistics/uk-business-data-survey-2026/uk-business-data-survey-2026"}]
+  }
+]

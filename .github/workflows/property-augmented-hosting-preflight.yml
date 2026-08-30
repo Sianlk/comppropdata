@@ -1,0 +1,42 @@
+name: Property Augmented Hosting Preflight
+on:
+  workflow_dispatch:
+  push:
+    branches: ['property-augmented-platform']
+    paths: ['.github/workflows/property-augmented-hosting-preflight.yml']
+permissions:
+  contents: read
+jobs:
+  inspect-digitalocean:
+    runs-on: ubuntu-latest
+    env:
+      DO_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+    steps:
+      - name: Check DigitalOcean credential
+        id: token
+        shell: bash
+        run: |
+          if [ -n "$DO_TOKEN" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+            echo "DigitalOcean credential is configured."
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "DigitalOcean credential is not configured."
+          fi
+      - name: Install doctl
+        if: steps.token.outputs.configured == 'true'
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: List existing App Platform apps
+        if: steps.token.outputs.configured == 'true'
+        shell: bash
+        run: |
+          echo '--- Existing App Platform apps ---'
+          doctl apps list --no-header || true
+      - name: List existing managed databases
+        if: steps.token.outputs.configured == 'true'
+        shell: bash
+        run: |
+          echo '--- Existing managed databases ---'
+          doctl databases list --no-header || true

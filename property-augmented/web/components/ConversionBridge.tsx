@@ -1,0 +1,4 @@
+'use client';
+import{useEffect}from'react';import{useReportWebVitals}from'next/web-vitals';
+declare global{interface Window{dataLayer?:any[];gtag?:(...args:any[])=>void;plausible?:(name:string,opts?:any)=>void;posthog?:{capture:(name:string,props?:any)=>void}}}
+export default function ConversionBridge(){useReportWebVitals(metric=>{window.gtag?.('event',metric.name,{value:Math.round(metric.name==='CLS'?metric.value*1000:metric.value),event_category:'Web Vitals',event_label:metric.id,non_interaction:true});window.posthog?.capture('web_vital',{name:metric.name,value:metric.value,rating:metric.rating})});useEffect(()=>{const fn=(e:Event)=>{const detail=(e as CustomEvent).detail||{};const name=`pda_${detail.type||'conversion'}`;window.gtag?.('event',name,detail);window.plausible?.(name,{props:detail});window.posthog?.capture(name,detail)};window.addEventListener('pda:conversion',fn);return()=>window.removeEventListener('pda:conversion',fn)},[]);return null}
