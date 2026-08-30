@@ -124,7 +124,9 @@ def lead(r:LeadIn,s:Session=Depends(db)):
 def intake(r:LeadIn,s:Session=Depends(db)):
  x=Lead(email=r.email.strip().lower(),name=r.name,source='consultancy-intake',consent=r.consent,payload_json=json.dumps(r.payload)); s.add(x); s.commit(); s.refresh(x); return {'id':x.id,'status':'received'}
 
-PRODUCTS={'site-triage':{'name':'30-Minute AI Site Triage','price':0,'file':'30-minute-ai-site-triage.pdf','public':True},'ai-property-developer-os':{'name':'AI Property Developer OS','price':79,'file':'ai-property-developer-os.xlsx','public':False}}
+# Free acquisition content is served only through the deliberately small Site Signal resource/lead flow.
+# The paid toolkit remains entitlement-controlled here; the retired 30-Minute Site Triage is intentionally absent.
+PRODUCTS={'ai-property-developer-os':{'name':'AI Property Developer OS','price':79,'file':'ai-property-developer-os.xlsx','public':False}}
 @app.get('/api/v1/products')
 def product_list(): return [{'slug':k,'name':v['name'],'price':v['price'],'public':v['public']} for k,v in PRODUCTS.items()]
 @app.post('/api/v1/payments/checkout')
