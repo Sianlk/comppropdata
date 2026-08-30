@@ -2,7 +2,11 @@ name: Property Augmented Container Images
 on:
   workflow_dispatch:
   push:
+    branches: ['property-augmented-platform']
     tags: ['property-augmented-v*']
+    paths:
+      - 'property-augmented/**'
+      - '.github/workflows/property-augmented-images.yml'
 permissions:
   contents: read
   packages: write
@@ -33,6 +37,7 @@ jobs:
           tags: |
             type=ref,event=tag
             type=sha
+            type=raw,value=production,enable=${{ github.ref == 'refs/heads/property-augmented-platform' }}
       - uses: docker/build-push-action@v6
         with:
           context: ${{ matrix.context }}
