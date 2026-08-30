@@ -39,8 +39,8 @@ def test_os_tiles_fail_closed_without_private_key():
  r=client.get('/api/v1/maps/os/10/511/340.png');assert r.status_code==503
 
 def test_complete_book_is_published_and_generated_from_same_source():
- meta=client.get('/api/v1/resources/book');assert meta.status_code==200,meta.text;body=meta.json();assert body['chapter_count']==16;assert body['reviewed']=='2026-08-30';assert body['publication_status']=='published-in-full';assert body['word_count']>5000;assert all(x['section_count']>=3 for x in body['chapters'])
- pdf=client.get('/api/v1/resources/property-development-augmented-book.pdf');assert pdf.status_code==200,pdf.text;assert pdf.headers['content-type'].startswith('application/pdf');assert len(pdf.content)>10000
+ meta=client.get('/api/v1/resources/book');assert meta.status_code==200,meta.text;body=meta.json();assert body['chapter_count']==16;assert body['reviewed']=='2026-08-30';assert body['publication_status']=='published-in-full';assert body['word_count']>10000;assert all(x['section_count']>=5 for x in body['chapters'])
+ pdf=client.get('/api/v1/resources/property-development-augmented-book.pdf');assert pdf.status_code==200,pdf.text;assert pdf.headers['content-type'].startswith('application/pdf');assert len(pdf.content)>30000
 
 def test_free_site_signal_is_a_deliberately_small_screening_asset():
  pdf=client.get('/api/v1/resources/site-signal.pdf');assert pdf.status_code==200,pdf.text;assert pdf.headers['content-type'].startswith('application/pdf');assert len(pdf.content)>2000
