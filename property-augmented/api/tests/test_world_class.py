@@ -26,7 +26,8 @@ def test_planning_adapter_uses_current_brownfield_dataset(monkeypatch):
 def test_world_class_paid_intelligence_requires_authentication():
  assert client.post('/api/v1/site/dossier',json={'postcode':'SW1A 1AA'}).status_code==401
  assert client.post('/api/v1/planning/prospects',json={'postcode':'SW1A 1AA','proposal':'rear extension'}).status_code==401
- assert client.post('/api/v1/planning/policy-pack',json={'postcode':'SW1A 1AA','local_authority_domain':'westminster.gov.uk'}).status_code==401
+ assert client.post('/api/v1/planning/policy-pack',json={'postcode':'SW1A 1AA'}).status_code==401
+ assert client.post('/api/v1/development/application-pack',json={'postcode':'SW1A 1AA','proposal':'rear extension'}).status_code==401
  assert client.post('/api/v1/market/deal-scan',json={'postcode':'SW1A 1AA'}).status_code==401
  assert client.post('/api/v1/development/site-value',json={'postcode':'SW1A 1AA','purchase_price':1,'pre_development_sqft':1,'post_development_sqft':2}).status_code==401
 
