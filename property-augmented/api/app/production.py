@@ -14,5 +14,6 @@ from . import operations as _operations  # noqa: F401,E402
 from . import readiness as _readiness  # noqa: F401,E402
 from . import policy_security as _policy_security  # noqa: F401,E402
 from . import book as _book  # noqa: F401,E402
+from . import site_signal as _site_signal  # noqa: F401,E402
 
 __all__ = ["app"]
