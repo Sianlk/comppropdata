@@ -1,7 +1,10 @@
-import raw from'../content/book.json';
+import raw from'../content/book.json';import expansion from'../content/book-expansion.json';import finalExpansion from'../content/book-expansion-final.json';
 export type BookSection={heading:string;body:string[]};
 export type BookChapter={slug:string;number:number;title:string;standfirst:string;sections:BookSection[]};
 export type BookSource={name:string;url:string};
-export const book=raw as typeof raw&{chapters:BookChapter[];sources:BookSource[]};
+const extra={...(expansion as Record<string,BookSection[]>),...(finalExpansion as Record<string,BookSection[]>)};
+const base=raw as typeof raw&{chapters:BookChapter[];sources:BookSource[]};
+export const book={...base,chapters:base.chapters.map(c=>({...c,sections:[...c.sections,...(extra[c.slug]||[])]}))};
 export const chapters=book.chapters as BookChapter[];
 export const chapterMap=Object.fromEntries(chapters.map(c=>[c.slug,c])) as Record<string,BookChapter>;
+export const bookWordCount=[book.title,book.subtitle,book.description,...chapters.flatMap(c=>[c.title,c.standfirst,...c.sections.flatMap(s=>[s.heading,...s.body])])].join(' ').trim().split(/\s+/).filter(Boolean).length;
